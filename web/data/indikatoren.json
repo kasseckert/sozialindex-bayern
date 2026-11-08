@@ -1112,6 +1112,27 @@
           "quellenangabe": "Kassenärztliche Vereinigung Bayerns bzw. BBSR INKAR"
         }
       ]
+    },
+    {
+      "id": "by_e07_6i",
+      "name": "E7.6: Auszubildende nach Ausbildungsbereichen",
+      "einheit": "",
+      "nachkommastellen": 1,
+      "beschreibung": "Auszubildende nach Ausbildungsbereichen (BY-E07.6i). Vorläufiger Eintrag: Messgröße und Filter werden nach der Erkundung der Tabelle festgelegt. Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "genesis",
+          "datenbank": "bildung",
+          "tabelle": "BY-E07.6i",
+          "regionalvariable": "BY-KRE"
+        }
+      ],
+      "im_index": false
     }
   ]
 }

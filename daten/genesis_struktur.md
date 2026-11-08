@@ -1,26 +1,25 @@
 # Aufbau erkundeter GENESIS-Tabellen
 
-## BY-D12.1i (bildung)
+## BY-E07.6i (bildung)
 
-**Titel:** D12.1: Übergange von der Grundschule auf weiterführende Schulen
+**Titel:** E7.6: Auszubildende nach Ausbildungsbereichen
 
-Regionalvariable: `BY-KRE` · Zeilen: 32980 · Jahre: 2022, 2023, 2024, 2025
+Regionalvariable: `BY-KRE` · Zeilen: 15520 · Jahre: 2022, 2023, 2024, 2025
 
 - Merkmal 1: **Kreise, kreisfreie Städte und Land** (Region, 96 Kreise)
-- Merkmal 2: **Schulart (allgemeinbildend)** (13 Ausprägungen): Mittel-/Hauptschulen; Integrierte Gesamtschulen; Realschulen zur sonderpädagogischen Förderung; Schulartunabhängige Orientierungsstufe; Förderzentren; Freie Waldorfschulen; Realschulen; Gymnasien; Deutsche; Männlich; Insgesamt; Ausländer; Weiblich
-- Merkmal 3: **Geschlecht und Nationalität** (6 Ausprägungen): Weiblich; Männlich; Insgesamt; Ausländer; Deutsche; 
+- Merkmal 2: **Ausbildungsbereich** (8 Ausprägungen): Insgesamt; Industrie und Handel; Handwerk; Öffentlicher Dienst; Hauswirtschaft; Freie Berufe; Seeschifffahrt; Landwirtschaft
+- Merkmal 3: **Geschlecht und Nationalität** (5 Ausprägungen): Weiblich; Deutsche; Insgesamt; Männlich; Ausländer
 
 Wertspalten (mit Zahl belegter Zeilen):
-- `None__None__%` (7473)
-- `BY-W03__Schüler/innen, Eingangskl. Sek. I (absolut)__Anzahl` (9413)
+- `BBS-W1__Auszubildende__Anzahl` (12267)
 
 Beispiel Bamberg (Stadt):
 
 ```
-{"Zeit": "2022-P1Y", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Mittel-/Hauptschulen", "3_Auspraegung_Label": "Deutsche", "None__None__%": "10,1"}
-{"Zeit": "2022-P1Y", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Mittel-/Hauptschulen", "3_Auspraegung_Label": "Deutsche", "BY-W03__Schüler/innen, Eingangskl. Sek. I (absolut)__Anzahl": "82"}
-{"Zeit": "2025-P1Y", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Realschulen", "3_Auspraegung_Label": "Männlich", "None__None__%": "6,5"}
-{"Zeit": "2025-P1Y", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Realschulen", "3_Auspraegung_Label": "Männlich", "BY-W03__Schüler/innen, Eingangskl. Sek. I (absolut)__Anzahl": "28"}
-{"Zeit": "2023-P1Y", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Realschulen zur sonderpädagogischen Förderung", "3_Auspraegung_Label": "Ausländer", "None__None__%": "-"}
-{"Zeit": "2023-P1Y", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Realschulen zur sonderpädagogischen Förderung", "3_Auspraegung_Label": "Ausländer", "BY-W03__Schüler/innen, Eingangskl. Sek. I (absolut)__Anzahl": "-"}
+{"Zeit": "2025", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Öffentlicher Dienst", "3_Auspraegung_Label": "Insgesamt", "BBS-W1__Auszubildende__Anzahl": "71"}
+{"Zeit": "2023", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Landwirtschaft", "3_Auspraegung_Label": "Männlich", "BBS-W1__Auszubildende__Anzahl": "13"}
+{"Zeit": "2022", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Landwirtschaft", "3_Auspraegung_Label": "Deutsche", "BBS-W1__Auszubildende__Anzahl": "18"}
+{"Zeit": "2024", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Freie Berufe", "3_Auspraegung_Label": "Weiblich", "BBS-W1__Auszubildende__Anzahl": "253"}
+{"Zeit": "2025", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Handwerk", "3_Auspraegung_Label": "Weiblich", "BBS-W1__Auszubildende__Anzahl": "141"}
+{"Zeit": "2023", "1_Auspraegung_Label": "Bamberg", "2_Auspraegung_Label": "Handwerk", "3_Auspraegung_Label": "Ausländer", "BBS-W1__Auszubildende__Anzahl": "59"}
 ```

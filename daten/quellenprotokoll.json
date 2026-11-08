@@ -193,6 +193,12 @@
    "herkunft": "schulen:gymnasium (konstant fortgeschrieben)",
    "quelle": "Schulstandorte in Bayern, Bayerisches Staatsministerium für Unterricht und Kultus (CC BY 4.0)",
    "code": "gymnasium"
+  },
+  "by_e07_6i": {
+   "herkunft": "genesis:bildung/BY-E07.6i",
+   "quelle": "Kommunale Bildungsdatenbank",
+   "code": "BY-E07.6i",
+   "titel": ""
   }
  },
  "gemeinde": {
