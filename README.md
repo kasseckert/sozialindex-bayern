@@ -79,6 +79,10 @@ Die Dimension „Bildung und Familie“ greift auf sechs Quellen zurück:
 
 **Grenzen:** Die Bildungsfragen des Zensus gibt es nur für Kreise sowie für Gemeinden ab 10 000 Einwohnern, deshalb nur auf Kreisebene genutzt. Die Schulentfernung ist Luftlinie vom Flächenmittelpunkt der Gemeinde, kein Schulweg. Die Übertrittsquote hängt auch vom Schulangebot vor Ort ab und ist in den Städten traditionell höher. Übertrittsquoten liegen bisher für 2023 und 2024 vor; neue Jahrgänge nach `daten/import/LIESMICH.md` ergänzen.
 
+## Drucken und PDF
+
+Jedes Gebiets-Popup hat unten den Knopf „Drucken oder als PDF speichern“. Er stellt Profil, Verlauf und Kennzahlen des Gebiets mit Jahr, Vergleichsmaßstab, Rang und Quellenhinweis auf A4 zusammen und öffnet den Druckdialog; dort lässt sich ein Drucker oder „Als PDF speichern“ wählen. Die Druckfassung ist immer hell, auch wenn die Karte im Dunkelmodus angezeigt wird.
+
 ## Schulstandorte in der Karte
 
 Unter „Schulstandorte einblenden“ lassen sich die Realschulen als Stecknadeln anzeigen; ein Klick zeigt Name, Adresse, Träger, Kreis sowie Links zur Website und zu OpenStreetMap. Bei gewählter Region erscheinen nur deren Schulen. Die Standorte stammen aus dem Dienst „Schulstandorte in Bayern“ des Kultusministeriums (CC BY 4.0) und werden mit jedem Lauf aktualisiert (`web/data/schulen/`). Weitere Schularten lassen sich in `konfiguration/indikatoren.json` unter `"schulstandorte_karte"` ergänzen, z. B. `["realschule", "gymnasium", "mittelschule", "fos"]` (mögliche Werte: grundschule, mittelschule, realschule, gymnasium, fos, berufliche, foerderzentrum); die Karte bietet dann je Schulart einen Schalter.

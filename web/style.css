@@ -296,3 +296,36 @@ input[type="range"] { width: 100%; accent-color: var(--s7); margin: 2px 0; }
 .schul-pop p.leise { margin: 0 0 6px; }
 .schul-pop .leise { color: var(--leise); font-size: 13px; }
 .schul-pop a { display: inline-block; margin-top: 6px; margin-right: 12px; }
+
+/* ---------------------------------------------------------- Druckansicht */
+.druck-knopf { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 5px 10px; font: inherit; font-size: 13px;
+  border: 1px solid var(--linie); border-radius: 6px; background: var(--papier); color: var(--tinte); cursor: pointer; }
+.druck-knopf:hover { border-color: var(--tinte); }
+#druckansicht { display: none; }
+@media print {
+  @page { size: A4 portrait; margin: 14mm 14mm 16mm; }
+  body.drucken > *:not(#druckansicht) { display: none !important; }
+  body.drucken { background: #fff !important; }
+  body.drucken #druckansicht { display: block; color: #1a1a1a; font-size: 10.5pt; line-height: 1.4;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  #druckansicht .druck-titel { font-size: 9pt; text-transform: uppercase; letter-spacing: .06em; color: #555; margin: 0 0 4px; }
+  #druckansicht .pop-kopf { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+    border-bottom: 2px solid #1a1a1a; padding-bottom: 6px; }
+  #druckansicht .pop-name { font-size: 18pt; font-weight: 700; margin: 0; }
+  #druckansicht .pop-art { margin: 2px 0 0; color: #555; }
+  #druckansicht .pop-wert { text-align: right; }
+  #druckansicht .pop-wert strong { display: block; font-size: 22pt; }
+  #druckansicht .druck-meta { color: #444; margin: 6px 0 10px; }
+  #druckansicht h2 { font-size: 11.5pt; margin: 10px 0 4px; }
+  #druckansicht .druck-diagramme { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; }
+  #druckansicht section { break-inside: avoid; }
+  #druckansicht section.druck-tabelle { break-inside: auto; }
+  #druckansicht thead { display: table-header-group; }   /* Spaltenköpfe auf jeder Seite wiederholen */
+  #druckansicht img { width: 100%; height: auto; }
+  #druckansicht .druck-notiz { font-size: 8.5pt; color: #555; margin: 2px 0 0; }
+  #druckansicht table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  #druckansicht th, #druckansicht td { padding: 2px 4px; border-bottom: 1px solid #ddd; text-align: left; }
+  #druckansicht td:not(:first-child), #druckansicht th:not(:first-child) { text-align: right; }
+  #druckansicht tr { break-inside: avoid; }
+  #druckansicht .druck-fuss { margin-top: 8mm; font-size: 8pt; color: #555; border-top: 1px solid #ccc; padding-top: 3mm; }
+}

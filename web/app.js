@@ -683,10 +683,77 @@
         <button type="button" role="tab" data-reiter="kennzahlen">Kennzahlen</button>
       </div>
       <div class="pop-flaeche" role="tabpanel"></div>
-      <p class="pop-notiz"></p>`;
+      <p class="pop-notiz"></p>
+      <button type="button" class="druck-knopf" data-druck>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-2M7 14h10v7H7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        Drucken oder als PDF speichern</button>`;
     div.querySelectorAll(".reiter button").forEach((b) =>
       b.addEventListener("click", () => { Z.reiter = b.dataset.reiter; reiterZeigen(Z.reiter); }));
+    div.querySelector("[data-druck]").addEventListener("click", () => druckansicht(p));
     return div;
+  }
+
+  // ------------------------------------------------------------ Druckansicht
+  /**
+   * Stellt Profil, Verlauf und Kennzahlen des Gebiets auf einer Druckseite zusammen und öffnet den
+   * Druckdialog; dort lässt sich auch „Als PDF speichern“ wählen. Die Diagramme werden unsichtbar im
+   * hellen Farbschema gezeichnet (im Dunkelmodus wären die Beschriftungen auf Papier unsichtbar).
+   */
+  function druckansicht(p) {
+    const wurzel = document.documentElement;
+    const altesSchema = wurzel.dataset.theme;
+    const alteFarbe = Chart.defaults.color, alteAnimation = Chart.defaults.animation, alteDichte = Chart.defaults.devicePixelRatio;
+    const offenesDiagramm = Karte.diagramm;
+    wurzel.dataset.theme = "light";
+    Chart.defaults.color = css("--leise");
+    Chart.defaults.animation = false;
+    Chart.defaults.devicePixelRatio = 2;          // scharf auch im Druck
+    const zeichnen = (funktion) => {
+      const box = document.createElement("div");
+      box.style.cssText = "position:fixed;left:-10000px;top:0;width:620px;height:360px";
+      const notiz = document.createElement("p");
+      document.body.appendChild(box);
+      Karte.diagramm = null;
+      funktion(box, notiz, p.ags);
+      let bild = "";
+      if (Karte.diagramm) { bild = Karte.diagramm.toBase64Image("image/png", 1); Karte.diagramm.destroy(); }
+      else if (box.querySelector("canvas")) bild = box.querySelector("canvas").toDataURL("image/png");
+      box.remove();
+      return { bild, notiz: notiz.textContent };
+    };
+    let profil, verlauf, tabelle, tabNotiz;
+    try {
+      profil = zeichnen(profilZeichnen);
+      verlauf = zeichnen(verlaufZeichnen);
+      const t = document.createElement("div"), tn = document.createElement("p");
+      kennzahlenZeichnen(t, tn, p.ags);
+      tabelle = t.innerHTML; tabNotiz = tn.textContent;
+    } finally {
+      Karte.diagramm = offenesDiagramm;
+      if (altesSchema === undefined) delete wurzel.dataset.theme; else wurzel.dataset.theme = altesSchema;
+      Chart.defaults.color = alteFarbe; Chart.defaults.animation = alteAnimation; Chart.defaults.devicePixelRatio = alteDichte;
+    }
+    const kopf = document.querySelector(".leaflet-popup .pop .pop-kopf")?.outerHTML || "";
+    const stand = Z.daten.meta.erstellt ? new Date(Z.daten.meta.erstellt).toLocaleDateString("de-DE") : "";
+    const bereich = $("#druckansicht");
+    bereich.innerHTML = `
+      <header class="druck-kopf">
+        <p class="druck-titel">Sozialindex ${esc(landName())}${Z.region !== "bayern" ? ": " + esc(regionName()) : ""}</p>
+        ${kopf}
+        <p class="druck-meta">Jahr ${Z.jahr}. 100 entspricht dem Durchschnitt der ${Z.ebene === "kreis" ? "Kreise" : "Gemeinden"} in ${esc(vergleichsName())}; höhere Werte sind günstiger.</p>
+      </header>
+      <div class="druck-diagramme">
+        <section><h2>Profil</h2>${profil.bild ? `<img src="${profil.bild}" alt="Profil">` : "<p>Kein Profil verfügbar.</p>"}<p class="druck-notiz">${esc(profil.notiz)}</p></section>
+        <section><h2>Verlauf: ${esc(merkmalName())}</h2>${verlauf.bild ? `<img src="${verlauf.bild}" alt="Verlauf">` : "<p>Kein Verlauf verfügbar.</p>"}<p class="druck-notiz">${esc(verlauf.notiz)}</p></section>
+      </div>
+      <section class="druck-tabelle"><h2>Kennzahlen ${Z.jahr}</h2>${tabelle}<p class="druck-notiz">${esc(tabNotiz)}</p></section>
+      <footer class="druck-fuss">Berechnet am ${esc(stand)}. Quellen, Methodik und Lizenzen: ${esc(location.href.split("#")[0])}#${esc(Z.region)} (Abschnitt „Quellen und Lizenzen“).</footer>`;
+    document.body.classList.add("drucken");
+    const aufraeumen = () => { document.body.classList.remove("drucken"); bereich.innerHTML = ""; };
+    window.addEventListener("afterprint", aufraeumen, { once: true });
+    // erst drucken, wenn die Diagrammbilder geladen sind
+    Promise.all([...bereich.querySelectorAll("img")].map((i) => i.complete ? null : new Promise((r) => { i.onload = r; i.onerror = r; })))
+      .then(() => setTimeout(() => window.print(), 50));
   }
 
   function reiterZeigen(name) {
