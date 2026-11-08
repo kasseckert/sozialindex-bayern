@@ -261,7 +261,7 @@
         neuZeichnen();
       }));
     $("#region").addEventListener("change", (e) => regionSetzen(e.target.value, true));
-    $("#bezirk-druck").addEventListener("click", bezirksuebersicht);
+    $("#bezirk-druck")?.addEventListener("click", bezirksuebersicht);   // fehlt in älteren index.html
     document.querySelectorAll('input[name="massstab"]').forEach((r) =>
       r.addEventListener("change", (e) => { Z.massstab = e.target.value; statCache.clear(); neuZeichnen(); }));
     window.addEventListener("hashchange", () => {
@@ -287,7 +287,8 @@
   }
 
   function massstabAktualisieren() {
-    $("#bezirk-druck").hidden = Z.region === "bayern";
+    const bezirkKnopf = $("#bezirk-druck");
+    if (bezirkKnopf) bezirkKnopf.hidden = Z.region === "bayern";
     const moeglich = regionalMoeglich();
     const feld = $("#massstab-feld");
     feld.hidden = Z.region === "bayern";
@@ -1193,7 +1194,9 @@
     } catch (e) {
       const lade = $("#lade");
       lade.classList.add("fehler");
-      lade.textContent = `Die Daten konnten nicht geladen werden (${e.message}). Die Seite muss über einen Webserver aufgerufen werden, nicht als lokale Datei.`;
+      lade.textContent = location.protocol === "file:"
+        ? `Die Daten konnten nicht geladen werden (${e.message}). Die Seite muss über einen Webserver aufgerufen werden, nicht als lokale Datei.`
+        : `Die Karte konnte nicht gestartet werden (${e.message}). Bitte die Seite neu laden (Strg + F5). Bleibt der Fehler, passen vermutlich die Programmdateien nicht zusammen, etwa index.html und app.js aus verschiedenen Ständen.`;
       console.error(e);
     }
   }
