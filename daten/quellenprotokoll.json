@@ -178,6 +178,18 @@
    "code": "BY-D12.3i",
    "titel": ""
   },
+  "azubi_hw": {
+   "herkunft": "genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i",
+   "quelle": "Kommunale Bildungsdatenbank",
+   "code": "BY-E07.6i",
+   "titel": ""
+  },
+  "azubi_ih": {
+   "herkunft": "genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i",
+   "quelle": "Kommunale Bildungsdatenbank",
+   "code": "BY-E07.6i",
+   "titel": ""
+  },
   "ohne_beruf": {
    "herkunft": "genesis:zensus/2000S-1003 / genesis:zensus/2000S-1003 (konstant fortgeschrieben)",
    "quelle": "Zensus 2022",
@@ -193,12 +205,6 @@
    "herkunft": "schulen:gymnasium (konstant fortgeschrieben)",
    "quelle": "Schulstandorte in Bayern, Bayerisches Staatsministerium für Unterricht und Kultus (CC BY 4.0)",
    "code": "gymnasium"
-  },
-  "by_e07_6i": {
-   "herkunft": "genesis:bildung/BY-E07.6i",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-E07.6i",
-   "titel": ""
   }
  },
  "gemeinde": {
