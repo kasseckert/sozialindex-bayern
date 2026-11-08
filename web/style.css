@@ -302,8 +302,12 @@ input[type="range"] { width: 100%; accent-color: var(--s7); margin: 2px 0; }
   border: 1px solid var(--linie); border-radius: 6px; background: var(--papier); color: var(--tinte); cursor: pointer; }
 .druck-knopf:hover { border-color: var(--tinte); }
 #druckansicht { display: none; }
+#bezirk-druck { margin-top: -6px; justify-self: start; }
+#bezirk-druck[hidden] { display: none; }
+@page quer { size: A4 landscape; margin: 8mm 10mm 8mm; }
 @media print {
   @page { size: A4 portrait; margin: 14mm 14mm 16mm; }
+  html { background: #fff !important; }
   body.drucken > *:not(#druckansicht) { display: none !important; }
   body.drucken { background: #fff !important; }
   body.drucken #druckansicht { display: block; color: #1a1a1a; font-size: 10.5pt; line-height: 1.4;
@@ -327,5 +331,35 @@ input[type="range"] { width: 100%; accent-color: var(--s7); margin: 2px 0; }
   #druckansicht th, #druckansicht td { padding: 2px 4px; border-bottom: 1px solid #ddd; text-align: left; }
   #druckansicht td:not(:first-child), #druckansicht th:not(:first-child) { text-align: right; }
   #druckansicht tr { break-inside: avoid; }
+  #druckansicht table.uebersicht { font-size: 9.5pt; }
+  #druckansicht table.uebersicht th { font-size: 8.5pt; color: #444; border-bottom: 1.5px solid #1a1a1a; vertical-align: bottom; }
+  #druckansicht table.uebersicht td { padding: 3px 5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  #druckansicht table.uebersicht td:first-child { white-space: normal; }
+  #druckansicht table.uebersicht tr.vergleich td { font-weight: 700; background: #f2f2f2; border-bottom: 1px solid #bbb; }
+  #druckansicht table.uebersicht tr.vergleich.erste td { border-top: 1.5px solid #1a1a1a; }
+  #druckansicht .punkt { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
   #druckansicht .druck-fuss { margin-top: 8mm; font-size: 8pt; color: #555; border-top: 1px solid #ccc; padding-top: 3mm; }
+}
+
+/* Bezirksübersicht: eine Seite A4 quer */
+@media print {
+  #druckansicht.quer { page: quer; font-size: 8.5pt; line-height: 1.3; }
+  #druckansicht.quer .pop-kopf { padding-bottom: 3px; }
+  #druckansicht.quer .druck-titel { margin: 0; font-size: 7.5pt; }
+  #druckansicht.quer .pop-name { font-size: 15pt; }
+  #druckansicht.quer .pop-art { font-size: 7.5pt; max-width: 190mm; }
+  #druckansicht.quer .pop-wert strong { font-size: 18pt; }
+  #druckansicht.quer .pop-wert span { font-size: 7.5pt; }
+  #druckansicht.quer h2 { font-size: 9pt; margin: 4px 0 2px; }
+  #druckansicht.quer .druck-diagramme.drei { display: grid; grid-template-columns: 45fr 31fr 24fr; gap: 5mm; align-items: start; }
+  #druckansicht.quer .druck-diagramme img { width: 100%; height: auto; max-height: 64mm; object-fit: contain; }
+  #druckansicht.quer .druck-notiz { font-size: 7pt; margin: 1px 0 0; }
+  #druckansicht.quer table.uebersicht { font-size: 7.6pt; margin-top: 3mm; }
+  #druckansicht.quer table.uebersicht th { font-size: 7pt; padding: 1px 3px; line-height: 1.15; }
+  #druckansicht.quer table.uebersicht tr.gruppe th { border-bottom: 1px solid #999; text-align: center; font-weight: 700; color: #1a1a1a; }
+  #druckansicht.quer table.uebersicht td { padding: 1.2px 3px; }
+  #druckansicht.quer table.uebersicht .kenn { border-left: 1px solid #e3e3e3; }
+  #druckansicht.quer table.uebersicht th.kenn + th.kenn, #druckansicht.quer table.uebersicht td.kenn + td.kenn { border-left: 0; }
+  #druckansicht.quer .punkt { width: 6px; height: 6px; margin-right: 3px; }
+  #druckansicht.quer .druck-tabelle { break-inside: avoid; }
 }

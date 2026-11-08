@@ -261,6 +261,7 @@
         neuZeichnen();
       }));
     $("#region").addEventListener("change", (e) => regionSetzen(e.target.value, true));
+    $("#bezirk-druck").addEventListener("click", bezirksuebersicht);
     document.querySelectorAll('input[name="massstab"]').forEach((r) =>
       r.addEventListener("change", (e) => { Z.massstab = e.target.value; statCache.clear(); neuZeichnen(); }));
     window.addEventListener("hashchange", () => {
@@ -286,6 +287,7 @@
   }
 
   function massstabAktualisieren() {
+    $("#bezirk-druck").hidden = Z.region === "bayern";
     const moeglich = regionalMoeglich();
     const feld = $("#massstab-feld");
     feld.hidden = Z.region === "bayern";
@@ -749,9 +751,187 @@
       <section class="druck-tabelle"><h2>Kennzahlen ${Z.jahr}</h2>${tabelle}<p class="druck-notiz">${esc(tabNotiz)}</p></section>
       <footer class="druck-fuss">Berechnet am ${esc(stand)}. Quellen, Methodik und Lizenzen: ${esc(location.href.split("#")[0])}#${esc(Z.region)} (Abschnitt „Quellen und Lizenzen“).</footer>`;
     document.body.classList.add("drucken");
-    const aufraeumen = () => { document.body.classList.remove("drucken"); bereich.innerHTML = ""; };
+    const wurzelD = document.documentElement, schemaD = wurzelD.dataset.theme;
+    wurzelD.dataset.theme = "light";        // Seitenränder nie dunkel drucken
+    const aufraeumen = () => {
+      document.body.classList.remove("drucken"); bereich.innerHTML = "";
+      if (schemaD === undefined) delete wurzelD.dataset.theme; else wurzelD.dataset.theme = schemaD;
+    };
     window.addEventListener("afterprint", aufraeumen, { once: true });
     // erst drucken, wenn die Diagrammbilder geladen sind
+    Promise.all([...bereich.querySelectorAll("img")].map((i) => i.complete ? null : new Promise((r) => { i.onload = r; i.onerror = r; })))
+      .then(() => setTimeout(() => window.print(), 50));
+  }
+
+  // ------------------------------------------------------------ Bezirksübersicht (Druck)
+  /** Führt fn im hellen Farbschema ohne Animation aus (für Druckbilder) und stellt danach alles wieder her. */
+  function imDruckschema(fn) {
+    const wurzel = document.documentElement;
+    const altesSchema = wurzel.dataset.theme;
+    const alt = { farbe: Chart.defaults.color, animation: Chart.defaults.animation, dichte: Chart.defaults.devicePixelRatio };
+    wurzel.dataset.theme = "light";
+    Chart.defaults.color = css("--leise");
+    Chart.defaults.animation = false;
+    Chart.defaults.devicePixelRatio = 2;
+    try { return fn(); } finally {
+      if (altesSchema === undefined) delete wurzel.dataset.theme; else wurzel.dataset.theme = altesSchema;
+      Chart.defaults.color = alt.farbe; Chart.defaults.animation = alt.animation; Chart.defaults.devicePixelRatio = alt.dichte;
+    }
+  }
+
+  /** Zeichnet ein Diagramm unsichtbar in fester Größe und gibt es als PNG-Bild zurück. */
+  function diagrammBild(config, breite = 620, hoehe = 360) {
+    const box = document.createElement("div");
+    box.style.cssText = `position:fixed;left:-10000px;top:0;width:${breite}px;height:${hoehe}px`;
+    const canvas = document.createElement("canvas");
+    box.appendChild(canvas);
+    document.body.appendChild(box);
+    const diagramm = new Chart(canvas, config);
+    const bild = diagramm.toBase64Image("image/png", 1);
+    diagramm.destroy();
+    box.remove();
+    return bild;
+  }
+
+  /** Senkrechte Bezugslinien (z. B. Ø Bezirk, Bayern = 100) in einem waagrechten Balkendiagramm. */
+  const bezugslinien = (linien) => ({
+    id: "bezugslinien",
+    afterDatasetsDraw(chart) {
+      const { ctx, chartArea: f, scales: { x } } = chart;
+      ctx.save();
+      const sortiert = linien.filter((l) => l.wert != null).map((l) => ({ ...l, px: x.getPixelForValue(l.wert) })).sort((a, b) => a.px - b.px);
+      // Liegen zwei Linien nah beieinander, Beschriftungen nach links bzw. rechts auseinanderziehen
+      const eng = sortiert.length === 2 && sortiert[1].px - sortiert[0].px < 160;
+      sortiert.forEach((l, i) => {
+        ctx.strokeStyle = l.farbe; ctx.lineWidth = 1.5; ctx.setLineDash(l.strich || []);
+        ctx.beginPath(); ctx.moveTo(l.px, f.top); ctx.lineTo(l.px, f.bottom); ctx.stroke();
+        ctx.setLineDash([]); ctx.fillStyle = l.farbe; ctx.font = `600 ${l.schrift || 12}px ` + css("--schrift");
+        ctx.textAlign = eng ? (i === 0 ? "right" : "left") : "center";
+        ctx.fillText(l.text, l.px + (eng ? (i === 0 ? -6 : 6) : 0), f.top - 8);
+      });
+      ctx.restore();
+    },
+  });
+
+  function bezirksuebersicht() {
+    if (Z.region === "bayern") return;
+    const j = String(Z.jahr);
+    const jahre = Z.daten.meta.jahre.map(String);
+    const daten = Z.daten.kreis.gebiete;
+    const kreise = Z.kreise.features.map((f) => f.properties).filter((p) => imFokus(p.ags) && daten[p.ags]);
+    // nur Dimensionen, für die im gewählten Jahr Werte vorliegen (leere Spalten und Achsen weglassen)
+    const dims = Z.daten.meta.dimensionen.filter((d) => kreise.some((p) => daten[p.ags].dimensionen?.[d.id]?.[j] != null));
+    // Werte immer im bayerischen Maßstab (100 = Durchschnitt der Kreise Bayerns)
+    const wert = (ags, schluessel, jahr = j) => schluessel === "index"
+      ? daten[ags].index?.[jahr] ?? null : daten[ags].dimensionen?.[schluessel]?.[jahr] ?? null;
+    const mittel = (liste) => { const v = liste.filter((x) => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
+    const spalten = ["index", ...dims.map((d) => d.id)];
+    const zeilen = kreise.map((p) => ({ p, w: Object.fromEntries(spalten.map((s) => [s, wert(p.ags, s)])), rang: daten[p.ags].rang?.[j] }))
+      .sort((a, b) => (b.w.index ?? -1e9) - (a.w.index ?? -1e9));
+    zeilen.forEach((z, i) => { z.rangBezirk = z.w.index == null ? null : i + 1; });
+    const bezirk = Object.fromEntries(spalten.map((s) => [s, mittel(zeilen.map((z) => z.w[s]))]));
+    // Kurznamen, damit Tabelle und Diagramm auf eine Seite passen: „Bamberg (Stadt)“, „Bamberg (Lkr.)“
+    const name = (p) => `${p.name} (${p.bez === "Landkreis" ? "Lkr." : "Stadt"})`;
+    // Kennzahlen der Übersicht mit Bezirks- und Bayernwert (Bayern = Mittel der bayerischen Kreise)
+    const kennIds = ["alq", "sgb2", "alt65", "bev5", "wand", "uebertritt_rs"].filter((id) => indikator(id));
+    const kennWert = (ags, id) => daten[ags].werte?.[id]?.[j] ?? null;
+    const kennBezirk = Object.fromEntries(kennIds.map((id) => [id, mittel(kreise.map((p) => kennWert(p.ags, id)))]));
+    const kennBayern = Object.fromEntries(kennIds.map((id) => [id, Z.daten.kreis.referenz[id]?.[j] ?? null]));
+    const kennFarbe = (id, v) => {      // Abweichung vom bayerischen Durchschnitt; Kontextindikatoren neutral
+      const ref = kennBayern[id], sd = Z.daten.kreis.statistik[id]?.sd;
+      if (v == null || ref == null || !sd) return css("--ohne-daten");
+      const kontext = istKontext(id);
+      return farbe(100 + 10 * (kontext ? 1 : indikator(id).polaritaet) * (v - ref) / sd, kontext);
+    };
+    const kurz = { alq: "Arbeitslosen&shy;quote", sgb2: "SGB-II-&shy;Quote", alt65: "Anteil 65+", bev5: "Bevölkerungs&shy;entw. 5 J.",
+                   wand: "Wanderungs&shy;saldo je 10.000 EW", uebertritt_rs: "Übertritt Real&shy;schule" };
+
+    const { balken, verlauf, profil, tabelle } = imDruckschema(() => {
+      const gruen = css("--s6"), violett = css("--s2"), tinte = css("--tinte"), leise = css("--leise");
+      const balken = diagrammBild({
+        type: "bar",
+        data: { labels: zeilen.map((z) => name(z.p)),
+                datasets: [{ data: zeilen.map((z) => z.w.index), backgroundColor: zeilen.map((z) => farbe(z.w.index, false)), borderWidth: 0, barPercentage: 0.8 }] },
+        options: { indexAxis: "y", responsive: true, maintainAspectRatio: false, layout: { padding: { top: 30 } },
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: { x: { min: Math.min(80, ...zeilen.map((z) => z.w.index ?? 100)) - 2, max: Math.max(120, ...zeilen.map((z) => z.w.index ?? 100)) + 2,
+                         grid: { color: "#e6e6e6" }, ticks: { font: { size: 18 } } },
+                    y: { grid: { display: false }, ticks: { color: tinte, font: { size: 20 } } } } },
+        plugins: [bezugslinien([{ wert: 100, farbe: leise, text: "Bayern 100", strich: [8, 6], schrift: 19 },
+                                { wert: bezirk.index, farbe: tinte, text: `Ø Bezirk ${fmt(bezirk.index, 0)}`, schrift: 19 }])],
+      }, 900, 560);
+      const reihe = (fn) => jahre.map((jj) => fn(jj));
+      const verlauf = diagrammBild({
+        type: "line",
+        data: { labels: jahre, datasets: [
+          { label: "Spanne der Kreise", data: reihe((jj) => { const v = kreise.map((p) => wert(p.ags, "index", jj)).filter((x) => x != null); return v.length ? Math.max(...v) : null; }),
+            borderWidth: 0, pointRadius: 0, backgroundColor: "rgba(120,120,120,.15)", fill: "+1" },
+          { label: "schwächster Kreis", data: reihe((jj) => { const v = kreise.map((p) => wert(p.ags, "index", jj)).filter((x) => x != null); return v.length ? Math.min(...v) : null; }),
+            borderWidth: 0, pointRadius: 0, fill: false },
+          { label: "Ø Bezirk", data: reihe((jj) => mittel(kreise.map((p) => wert(p.ags, "index", jj)))), borderColor: tinte, borderWidth: 2.5, pointRadius: 2, tension: 0.25, fill: false },
+          { label: "Bayern", data: reihe(() => 100), borderColor: leise, borderDash: [5, 4], borderWidth: 1.5, pointRadius: 0, fill: false },
+        ] },
+        options: { responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { labels: { filter: (i) => i.text !== "schwächster Kreis", boxWidth: 16, font: { size: 15 } } }, tooltip: { enabled: false } },
+          scales: { y: { grid: { color: "#e6e6e6" }, ticks: { font: { size: 15 } } }, x: { grid: { display: false }, ticks: { font: { size: 15 } } } } },
+      }, 620, 520);
+      const profil = diagrammBild({
+        type: "radar",
+        data: { labels: dims.map((d) => DIM_KURZ[d.id] || d.name), datasets: [
+          { label: "Ø Bezirk", data: dims.map((d) => bezirk[d.id]), borderColor: gruen, backgroundColor: "rgba(60,130,90,.18)", borderWidth: 2, pointRadius: 3 },
+          { label: "Bayern", data: dims.map(() => 100), borderColor: leise, borderDash: [5, 4], borderWidth: 1.5, pointRadius: 0, fill: false },
+        ] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: { enabled: false }, legend: { labels: { boxWidth: 16, font: { size: 15 } } } },
+          scales: { r: { suggestedMin: Math.min(85, ...dims.map((d) => bezirk[d.id] ?? 100)) - 3, suggestedMax: Math.max(115, ...dims.map((d) => bezirk[d.id] ?? 100)) + 3,
+                         ticks: { display: false }, pointLabels: { color: tinte, font: { size: 17, weight: "600" } } } } },
+      }, 520, 520);
+      const zelle = (w) => w == null ? `<td>–</td>` : `<td><span class="punkt" style="background:${farbe(w, false)}"></span>${fmt(w, 0)}</td>`;
+      const kennZelle = (id, v, stern = false) => v == null ? `<td class="kenn">–</td>`
+        : `<td class="kenn"><span class="punkt" style="background:${kennFarbe(id, v)}"></span>${mitEinheit(v, indikator(id))}${stern ? "*" : ""}</td>`;
+      let fortgeschrieben = false;
+      const tabelle = `<table class="uebersicht">
+        <thead>
+          <tr class="gruppe"><th></th><th colspan="${spalten.length}">Index (Bayern = 100)</th><th colspan="${kennIds.length}" class="kenn">Kennzahlen ${Z.jahr}</th></tr>
+          <tr><th>Kreis</th><th>Gesamt</th>${dims.map((d) => `<th>${esc(DIM_KURZ[d.id] || d.name)}</th>`).join("")}
+            ${kennIds.map((id) => `<th class="kenn">${kurz[id] || esc(indikator(id).name)}</th>`).join("")}</tr>
+        </thead>
+        <tbody>${zeilen.map((z) => `<tr><td>${esc(name(z.p))}</td>${spalten.map((s) => zelle(z.w[s])).join("")}
+          ${kennIds.map((id) => { const st = !!fortgeschriebenAus(z.p.ags, id, Z.jahr, "kreis"); fortgeschrieben ||= st; return kennZelle(id, kennWert(z.p.ags, id), st); }).join("")}</tr>`).join("")}
+          <tr class="vergleich erste"><td>Ø ${esc(regionName())}</td>${spalten.map((s) => zelle(bezirk[s])).join("")}${kennIds.map((id) => kennZelle(id, kennBezirk[id])).join("")}</tr>
+          <tr class="vergleich"><td>Bayern</td>${spalten.map(() => `<td>100</td>`).join("")}${kennIds.map((id) => kennZelle(id, kennBayern[id])).join("")}</tr>
+        </tbody></table>${fortgeschrieben ? `<p class="druck-notiz">* Für ${Z.jahr} noch nicht veröffentlicht; letzter verfügbarer Wert fortgeschrieben.</p>` : ""}`;
+      return { balken, verlauf, profil, tabelle };
+    });
+
+    const stand = Z.daten.meta.erstellt ? new Date(Z.daten.meta.erstellt).toLocaleDateString("de-DE") : "";
+    const diff = bezirk.index == null ? "" : bezirk.index >= 100 ? `${fmt(bezirk.index - 100, 1)} Punkte über` : `${fmt(100 - bezirk.index, 1)} Punkte unter`;
+    const bereich = $("#druckansicht");
+    bereich.classList.add("quer");
+    bereich.innerHTML = `
+      <header class="druck-kopf">
+        <div class="pop-kopf"><div><p class="druck-titel">Sozialindex ${esc(landName())}: Bezirksübersicht ${Z.jahr}</p>
+          <p class="pop-name">${esc(regionName())}</p>
+          <p class="pop-art">${zeilen.length} Kreise und kreisfreie Städte. Index im bayerischen Maßstab: 100 = Durchschnitt aller Kreise Bayerns, höher ist günstiger.
+            Ø ${esc(regionName())} = ungewichteter Mittelwert der Kreise.</p></div>
+          <div class="pop-wert"><strong>${fmt(bezirk.index, 0)}</strong><span>Gesamtindex Ø ${esc(regionName())}<br>${diff ? diff + " dem bayerischen Durchschnitt" : ""}</span></div></div>
+      </header>
+      <div class="druck-diagramme drei">
+        <section><h2>Gesamtindex der Kreise</h2><img src="${balken}" alt="Gesamtindex der Kreise"></section>
+        <section><h2>Verlauf: Ø Bezirk und Bayern</h2><img src="${verlauf}" alt="Verlauf"><p class="druck-notiz">Grau: Spanne vom schwächsten bis zum besten Kreis.</p></section>
+        <section><h2>Profil: Ø Bezirk und Bayern</h2><img src="${profil}" alt="Profil"><p class="druck-notiz">Weiter außen ist günstiger.</p></section>
+      </div>
+      <section class="druck-tabelle">${tabelle}
+        <p class="druck-notiz">Farbpunkte: Abweichung vom bayerischen Durchschnitt, grün günstiger, violett ungünstiger; blau: Kontextkennzahl ohne Wertung (höher/niedriger).
+          Bayern bei den Kennzahlen: Durchschnitt der bayerischen Kreise. Berechnet am ${esc(stand)}. Quellen und Methodik: ${esc(location.href.split("#")[0])}#${esc(Z.region)}</p></section>`;
+    // Während des Drucks ganz auf Hell, damit Seitenränder nie dunkel gedruckt werden
+    const wurzel = document.documentElement, schema = wurzel.dataset.theme;
+    wurzel.dataset.theme = "light";
+    window.addEventListener("afterprint", () => {
+      bereich.classList.remove("quer");
+      if (schema === undefined) delete wurzel.dataset.theme; else wurzel.dataset.theme = schema;
+    }, { once: true });
+    document.body.classList.add("drucken");
+    window.addEventListener("afterprint", () => { document.body.classList.remove("drucken"); bereich.innerHTML = ""; }, { once: true });
     Promise.all([...bereich.querySelectorAll("img")].map((i) => i.complete ? null : new Promise((r) => { i.onload = r; i.onerror = r; })))
       .then(() => setTimeout(() => window.print(), 50));
   }
