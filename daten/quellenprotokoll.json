@@ -107,31 +107,31 @@
    "einheit": "Prozent"
   },
   "sch_ausl": {
-   "herkunft": "summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i)",
+   "herkunft": "summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) (teils aus letztem Lauf)",
    "quelle": "Kommunale Bildungsdatenbank",
    "code": "BY-D07.1i",
    "titel": ""
   },
   "sch_je_lk": {
-   "herkunft": "summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)",
+   "herkunft": "summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) (teils aus letztem Lauf)",
    "quelle": "Kommunale Bildungsdatenbank",
    "code": "BY-D07.1i",
    "titel": ""
   },
   "lk_teilzeit": {
-   "herkunft": "summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)",
+   "herkunft": "summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) (teils aus letztem Lauf)",
    "quelle": "Kommunale Bildungsdatenbank",
    "code": "BY-D09.1i",
    "titel": ""
   },
   "einsch_spaet": {
-   "herkunft": "summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i)",
+   "herkunft": "summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) (teils aus letztem Lauf)",
    "quelle": "Kommunale Bildungsdatenbank",
    "code": "BY-D11.1i",
    "titel": ""
   },
   "einsch_frueh": {
-   "herkunft": "summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i)",
+   "herkunft": "summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) (teils aus letztem Lauf)",
    "quelle": "Kommunale Bildungsdatenbank",
    "code": "BY-D11.1i",
    "titel": ""
@@ -178,14 +178,43 @@
    "code": "BY-D12.3i",
    "titel": ""
   },
+  "rs_schueler": {
+   "herkunft": "summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i)",
+   "quelle": "Kommunale Bildungsdatenbank",
+   "code": "BY-D07.1i",
+   "titel": ""
+  },
+  "rs_entw": {
+   "herkunft": "veraenderung(5 J.: summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i))",
+   "quelle": "Kommunale Bildungsdatenbank",
+   "code": "BY-D07.1i",
+   "titel": ""
+  },
+  "rs_sch_je_lk": {
+   "herkunft": "summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)",
+   "quelle": "Kommunale Bildungsdatenbank",
+   "code": "BY-D07.1i",
+   "titel": ""
+  },
+  "rs_lk_teilzeit": {
+   "herkunft": "summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)",
+   "quelle": "Kommunale Bildungsdatenbank",
+   "code": "BY-D09.1i",
+   "titel": ""
+  },
+  "weg_rs": {
+   "herkunft": "schulen:realschule (konstant fortgeschrieben)",
+   "quelle": "Schulstandorte in Bayern, Bayerisches Staatsministerium für Unterricht und Kultus (CC BY 4.0)",
+   "code": "realschule"
+  },
   "azubi_hw": {
-   "herkunft": "genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i",
+   "herkunft": "genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i (teils aus letztem Lauf)",
    "quelle": "Kommunale Bildungsdatenbank",
    "code": "BY-E07.6i",
    "titel": ""
   },
   "azubi_ih": {
-   "herkunft": "genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i",
+   "herkunft": "genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i (teils aus letztem Lauf)",
    "quelle": "Kommunale Bildungsdatenbank",
    "code": "BY-E07.6i",
    "titel": ""
@@ -225,6 +254,11 @@
    "titel": "Bevölkerungsstand - Geburten - Gestorbene - Wanderungen",
    "feld_titel": "Bevölkerungsdichte (EW je qkm)",
    "einheit": "Anzahl"
+  },
+  "weg_rs": {
+   "herkunft": "schulen:realschule (konstant fortgeschrieben)",
+   "quelle": "Schulstandorte in Bayern, Bayerisches Staatsministerium für Unterricht und Kultus (CC BY 4.0)",
+   "code": "realschule"
   },
   "weg_gs": {
    "herkunft": "schulen:grundschule (konstant fortgeschrieben)",

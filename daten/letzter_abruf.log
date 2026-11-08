@@ -12,42 +12,53 @@ kreis     uebertritt_rs   576 Werte  csv:uebertritt_realschule.csv
 kreis     eignung_gym   576 Werte  csv:eignung_gymnasium.csv
 kreis     eignung_rs    576 Werte  csv:eignung_realschule.csv
 kreis     abi           960 Werte  regionalatlas:AI003-2/ai0304
-  · sch_ausl (kreis, quotient): 70 s
-kreis     sch_ausl      960 Werte  summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i)
-  · sch_je_lk (kreis, quotient): 118 s
-kreis     sch_je_lk     960 Werte  summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)
-kreis     lk_teilzeit   960 Werte  summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)
-  · einsch_spaet (kreis, quotient): 66 s
-kreis     einsch_spaet   960 Werte  summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i)
-kreis     einsch_frueh   960 Werte  summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i)
-  · ue_ms (kreis, genesis): 102 s
-  · ue_ms (kreis): Jahre 2024 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-  · ue_ms (kreis): Werte nur bis 2023; die Tabelle enthält keine späteren Jahre
-kreis     ue_ms         960 Werte  genesis:bildung/BY-D12.1i (teils aus letztem Lauf)
-  · ue_gym_kbd (kreis): Jahre 2024 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-  · ue_gym_kbd (kreis): Werte nur bis 2023; die Tabelle enthält keine späteren Jahre
-kreis     ue_gym_kbd    960 Werte  genesis:bildung/BY-D12.1i (teils aus letztem Lauf)
-  · ue_rs_kbd (kreis): Jahre 2024 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-  · ue_rs_kbd (kreis): Werte nur bis 2023; die Tabelle enthält keine späteren Jahre
-kreis     ue_rs_kbd     960 Werte  genesis:bildung/BY-D12.1i (teils aus letztem Lauf)
-  · ue_sonst_kbd (kreis): Jahre 2024 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-  · ue_sonst_kbd (kreis): Werte nur bis 2023; die Tabelle enthält keine späteren Jahre
-kreis     ue_sonst_kbd   960 Werte  rest(100 - genesis:bildung/BY-D12.1i - genesis:bildung/BY-D12.1i - genesis:bildung/BY-D12.1i) (teils aus letztem Lauf)
-  · wechsel_gym_rs (kreis, genesis): 393 s
-  · wechsel_gym_rs (kreis): Jahre 2020, 2021, 2022 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     wechsel_gym_rs   960 Werte  genesis:bildung/BY-D12.3i (teils aus letztem Lauf)
-  · wechsel_rs_ms (kreis): Jahre 2020, 2021, 2022 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     wechsel_rs_ms   960 Werte  genesis:bildung/BY-D12.3i (teils aus letztem Lauf)
-  · wechsel_ms_rs (kreis): Jahre 2020, 2021, 2022 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     wechsel_ms_rs   858 Werte  genesis:bildung/BY-D12.3i (teils aus letztem Lauf)
-  · azubi_hw (kreis, quotient): 36 s
-kreis     azubi_hw      864 Werte  genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i
-kreis     azubi_ih      864 Werte  genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i
-  · ohne_beruf (kreis, quotient): 27 s
+  · sch_ausl (kreis, quotient): 389 s
+  · sch_ausl (kreis): Jahre 2016, 2017, 2018 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     sch_ausl     1440 Werte  summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) (teils aus letztem Lauf)
+  · sch_je_lk (kreis, quotient): 692 s
+  · sch_je_lk (kreis): Jahre 2016, 2017, 2018, 2022, 2023 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     sch_je_lk    1344 Werte  summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) (teils aus letztem Lauf)
+  · lk_teilzeit (kreis, quotient): 20 s
+  · lk_teilzeit (kreis): Jahre 2017, 2018, 2022, 2023 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     lk_teilzeit  1344 Werte  summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) (teils aus letztem Lauf)
+  · einsch_spaet (kreis, quotient): 636 s
+  · einsch_spaet (kreis): Jahre 2018, 2022, 2023, 2024 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+  · einsch_spaet (kreis): Werte nur bis 2021; die Tabelle enthält keine späteren Jahre
+kreis     einsch_spaet  1344 Werte  summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) (teils aus letztem Lauf)
+  · einsch_frueh (kreis): Jahre 2018, 2022, 2023, 2024 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+  · einsch_frueh (kreis): Werte nur bis 2021; die Tabelle enthält keine späteren Jahre
+kreis     einsch_frueh  1344 Werte  summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) (teils aus letztem Lauf)
+  · ue_ms (kreis, genesis): 357 s
+  · ue_ms (kreis): Jahre 2015, 2016, 2017 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     ue_ms        1440 Werte  genesis:bildung/BY-D12.1i (teils aus letztem Lauf)
+  · ue_gym_kbd (kreis): Jahre 2015, 2016, 2017 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     ue_gym_kbd   1440 Werte  genesis:bildung/BY-D12.1i (teils aus letztem Lauf)
+  · ue_rs_kbd (kreis): Jahre 2015, 2016, 2017 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     ue_rs_kbd    1440 Werte  genesis:bildung/BY-D12.1i (teils aus letztem Lauf)
+  · ue_sonst_kbd (kreis): Jahre 2015, 2016, 2017 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     ue_sonst_kbd  1440 Werte  rest(100 - genesis:bildung/BY-D12.1i - genesis:bildung/BY-D12.1i - genesis:bildung/BY-D12.1i) (teils aus letztem Lauf)
+  · wechsel_gym_rs (kreis, genesis): 531 s
+  · wechsel_gym_rs (kreis): Jahre 2017 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     wechsel_gym_rs  1152 Werte  genesis:bildung/BY-D12.3i (teils aus letztem Lauf)
+  · wechsel_rs_ms (kreis): Jahre 2017 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     wechsel_rs_ms  1152 Werte  genesis:bildung/BY-D12.3i (teils aus letztem Lauf)
+  · wechsel_ms_rs (kreis): Jahre 2017 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     wechsel_ms_rs  1010 Werte  genesis:bildung/BY-D12.3i (teils aus letztem Lauf)
+kreis     rs_schueler  1152 Werte  summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i)
+kreis     rs_entw       384 Werte  veraenderung(5 J.: summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i))
+kreis     rs_sch_je_lk   864 Werte  summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)
+  · rs_lk_teilzeit (kreis, quotient): 23 s
+kreis     rs_lk_teilzeit   960 Werte  summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)
+kreis     weg_rs        960 Werte  schulen:realschule (konstant fortgeschrieben)
+  · azubi_hw (kreis, quotient): 359 s
+  · azubi_hw (kreis): Jahre 2018, 2019 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     azubi_hw     1344 Werte  genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i (teils aus letztem Lauf)
+  · azubi_ih (kreis): Jahre 2018, 2019 diesmal nicht geliefert, aus dem letzten Lauf übernommen
+kreis     azubi_ih     1344 Werte  genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i (teils aus letztem Lauf)
+  · ohne_beruf (kreis, quotient): 28 s
   · ohne_beruf (kreis): Werte nur bis 2022; die Tabelle enthält keine späteren Jahre
 kreis     ohne_beruf    960 Werte  genesis:zensus/2000S-1003 / genesis:zensus/2000S-1003 (konstant fortgeschrieben)
 kreis     ausbildung      – keine Daten, entfällt auf dieser Ebene
-  · weg_gs (kreis, schulen): 37 s
 kreis     weg_gs        960 Werte  schulen:grundschule (konstant fortgeschrieben)
 kreis     weg_gym       960 Werte  schulen:gymnasium (konstant fortgeschrieben)
 kreis     wfl             – keine Daten, entfällt auf dieser Ebene
@@ -61,21 +72,28 @@ gemeinde  bev5        20310 Werte  regionalatlas:AI002-1-5/ai0201
   · wand (gemeinde): regionalatlas:AI002-1-5/ai0212 deckt nur 8% der Gebiete ab, übersprungen
 gemeinde  wand            – keine Daten, entfällt auf dieser Ebene
 gemeinde  u3              – keine Daten, entfällt auf dieser Ebene
+gemeinde  weg_rs      20560 Werte  schulen:realschule (konstant fortgeschrieben)
 gemeinde  weg_gs      20560 Werte  schulen:grundschule (konstant fortgeschrieben)
 gemeinde  weg_gym     20560 Werte  schulen:gymnasium (konstant fortgeschrieben)
 gemeinde  wfl             – keine Daten, entfällt auf dieser Ebene
-  ! BY-D12.1i: Jahre 2024 nicht abrufbar
-  ! BY-D12.3i: Jahre 2020, 2021, 2022 nicht abrufbar
-  ! Tabellenliste bildung (*): https://www.bildungsmonitoring.de/bildungws/rest/2020/catalogue/tables fehlgeschlagen: HTTPSConnectionPool(host='www.bildungsmonitoring.de', port=443): Max retries exceeded with url: /bildungws/rest/2
-  ! Tabellenliste bildung (BY-*): https://www.bildungsmonitoring.de/bildungws/rest/2020/catalogue/tables fehlgeschlagen: HTTPSConnectionPool(host='www.bildungsmonitoring.de', port=443): Max retries exceeded with url: /bildungws/rest/2
-  · Tabellenliste bildung: bisherige Liste mit 907 Tabellen beibehalten
+  ! BY-D07.1i: Jahre 2016, 2017, 2018 nicht abrufbar
+  ! BY-D09.1i: Jahre 2010, 2017, 2018, 2022, 2023 nicht abrufbar
+  ! BY-D11.1i: Jahre 2010, 2018, 2022, 2023, 2024 nicht abrufbar
+  ! BY-D12.1i: Jahre 2015, 2016, 2017 nicht abrufbar
+  ! BY-D12.3i: Jahre 2010, 2011, 2012, 2017 nicht abrufbar
+  ! BY-E07.6i: Jahre 2018, 2019, 2020 nicht abrufbar
+  · Tabellenliste bildung: 907 Tabellen
   · Tabellenliste zensus: 420 Tabellen
   · Schulstandorte realschule: 368 Standorte, davon ohne Namen 0; Felder im Dienst: ['hausnummer', 'ort', 'plz', 'postleitzahl', 'schulart', 'schulname', 'strasse', 'Ebenen: Dienst schulstandorte_bayern-wfs mit 8 Ebenen: SchulenZurSonderpaedagogischenFoerderung, WeitereSchulen, BeruflicheSchulen, MittelUndHauptschulen, Wirtschaftsschulen, Realschulen, Grundschulen, Gymnasien; SchulenZurSonderpaedagogischenFoerderung: 3 realschule (Schulart: Realschule z. sp. F.); Realschulen: 339 realschule (Schulart: Abendrealschule, Integrierte Gesamtschule, Realschule, Realschule z. sp. F.); ergänzt aus dem Dienst der staatlichen Schulen: 25 (z. B. Staatliche Realschule Buchloe, Georg-Hartmann-Realschule Staatliche Realschule Forchheim, Ferdinand-von-Miller-Schule Staatliche Realschule Fürstenfeldbruck); Korrekturdatei: 0 entfernt, 1 ergänzt']
   · Schulstandorte gymnasium: 433 Standorte, davon ohne Namen 0; Felder im Dienst: ['hausnummer', 'ort', 'plz', 'postleitzahl', 'schulart', 'schulname', 'strasse', 'Ebenen: Dienst schulstandorte_bayern-wfs mit 8 Ebenen: SchulenZurSonderpaedagogischenFoerderung, WeitereSchulen, BeruflicheSchulen, MittelUndHauptschulen, Wirtschaftsschulen, Realschulen, Grundschulen, Gymnasien; Gymnasien: 412 gymnasium (Schulart: Abendgymnasium, Gymnasium, Integrierte Gesamtschule, Kolleg); ergänzt aus dem Dienst der staatlichen Schulen: 21 (z. B. Jack-Steinberger-Gymnasium Bad Kissingen, Staatl. Gymnasium Lappersdorf, Gymnasium Casimirianum Coburg)']
   · Schulstandorte fos: 71 Standorte, davon ohne Namen 0; Felder im Dienst: ['hausnummer', 'ort', 'plz', 'postleitzahl', 'schulart', 'schulname', 'strasse', 'Ebenen: Dienst schulstandorte_bayern-wfs mit 8 Ebenen: SchulenZurSonderpaedagogischenFoerderung, WeitereSchulen, BeruflicheSchulen, MittelUndHauptschulen, Wirtschaftsschulen, Realschulen, Grundschulen, Gymnasien; SchulenZurSonderpaedagogischenFoerderung: 2 fos (Schulart: Fachoberschule z. sp. F.); ergänzt aus dem Dienst der staatlichen Schulen: 69 (z. B. Staatl. Fachoberschule Altötting, Staatliche Fachoberschule Amberg, Staatliche Fachoberschule Ansbach)']
-  · Schuldiagnose: verworfen je Schulart {'grundschule': 2088, 'gymnasium': 302, 'realschule': 216, 'fos': 0} (Details in daten/schulen_diagnose.json)
+  · Schuldiagnose: verworfen je Schulart {'realschule': 216, 'grundschule': 2088, 'gymnasium': 302, 'fos': 0} (Details in daten/schulen_diagnose.json)
 
-109478 Zeilen geschrieben nach daten/rohdaten.csv
-Geschrieben: web/data/werte.json (488 KB)
+133110 Zeilen geschrieben nach daten/rohdaten.csv
+Geschrieben: web/data/werte.json (542 KB)
 kreis: günstigste ['München', 'München', 'Starnberg'], ungünstigste ['Schweinfurt', 'Wunsiedel i. Fichtelgebirge', 'Hof']
 gemeinde: günstigste ['Bamberg', 'München', 'Nürnberg'], ungünstigste ['Ludwigsstadt', 'Bayerisch Eisenstein', 'Rottach-Egern']
+BY-E12.1i: ok
+BY-E15.1i: ok
+BY-A01.2i: ok
+BY-A01.5i: ok

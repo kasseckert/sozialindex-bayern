@@ -974,6 +974,292 @@
       "erlaeuterung_gruppe": "wechsel"
     },
     {
+      "id": "rs_schueler",
+      "name": "Schülerinnen und Schüler an Realschulen (öffentliche Schulen)",
+      "einheit": "",
+      "nachkommastellen": 0,
+      "beschreibung": "Zahl der Schülerinnen und Schüler an öffentlichen Realschulen im Kreis (BY-D07.1i). Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "im_index": false,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "summe",
+          "teile": [
+            {
+              "typ": "genesis",
+              "datenbank": "bildung",
+              "tabelle": "BY-D07.1i",
+              "regionalvariable": "BY-KRE",
+              "wert_spalte": "by-w01",
+              "filter": {
+                "Schulart": "=Realschulen",
+                "Nationalität": "=Insgesamt",
+                "Trägerschaft": "=staatlich"
+              },
+              "strich_als_null": true
+            },
+            {
+              "typ": "genesis",
+              "datenbank": "bildung",
+              "tabelle": "BY-D07.1i",
+              "regionalvariable": "BY-KRE",
+              "wert_spalte": "by-w01",
+              "filter": {
+                "Schulart": "=Realschulen",
+                "Nationalität": "=Insgesamt",
+                "Trägerschaft": "=kommunal"
+              },
+              "strich_als_null": true
+            }
+          ]
+        }
+      ],
+      "erlaeuterung_gruppe": "realschule",
+      "erlaeuterung_titel": "Öffentliche Realschulen: Schülerzahl, Lehrkräfte",
+      "erlaeuterung": "Kennzahlen der öffentlichen Realschulen (staatliche und kommunale Träger) im Kreis, gezählt am Ort der Schule; Werte für Privatschulen, darunter die kirchlichen Realschulen, veröffentlicht die Kommunale Bildungsdatenbank auf Kreisebene nicht. Die Entwicklung der Schülerzahl ist die Veränderung in Prozent gegenüber dem Stand fünf Schuljahre zuvor. Schüler je Lehrkraft zählt die Lehrkräfte nach Köpfen, nicht nach Vollzeitstellen; ein hoher Teilzeitanteil senkt diesen Wert deshalb, ohne dass mehr Unterrichtskapazität vorhanden sein muss. Quelle: Kommunale Bildungsdatenbank, Tabellen BY-D07.1i und BY-D09.1i."
+    },
+    {
+      "id": "rs_entw",
+      "name": "Entwicklung der Schülerzahl an Realschulen (5 Jahre)",
+      "einheit": "%",
+      "nachkommastellen": 1,
+      "beschreibung": "Veränderung der Zahl der Schülerinnen und Schüler an öffentlichen Realschulen gegenüber dem Stand fünf Jahre zuvor (BY-D07.1i). Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "im_index": false,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "veraenderung",
+          "jahre": 5,
+          "quelle": {
+            "typ": "summe",
+            "teile": [
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-D07.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w01",
+                "filter": {
+                  "Schulart": "=Realschulen",
+                  "Nationalität": "=Insgesamt",
+                  "Trägerschaft": "=staatlich"
+                },
+                "strich_als_null": true
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-D07.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w01",
+                "filter": {
+                  "Schulart": "=Realschulen",
+                  "Nationalität": "=Insgesamt",
+                  "Trägerschaft": "=kommunal"
+                },
+                "strich_als_null": true
+              }
+            ]
+          }
+        }
+      ],
+      "erlaeuterung_gruppe": "realschule"
+    },
+    {
+      "id": "rs_sch_je_lk",
+      "name": "Schülerinnen und Schüler je Lehrkraft an Realschulen",
+      "einheit": "je Lehrkraft",
+      "nachkommastellen": 1,
+      "beschreibung": "Schülerinnen und Schüler je Lehrkraft an öffentlichen Realschulen; Lehrkräfte nach Köpfen (BY-D07.1i, BY-D09.1i). Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "im_index": false,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "quotient",
+          "faktor": 1,
+          "zaehler": {
+            "typ": "summe",
+            "teile": [
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-D07.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w01",
+                "filter": {
+                  "Schulart": "=Realschulen",
+                  "Nationalität": "=Insgesamt",
+                  "Trägerschaft": "=staatlich"
+                },
+                "strich_als_null": true
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-D07.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w01",
+                "filter": {
+                  "Schulart": "=Realschulen",
+                  "Nationalität": "=Insgesamt",
+                  "Trägerschaft": "=kommunal"
+                },
+                "strich_als_null": true
+              }
+            ]
+          },
+          "nenner": {
+            "typ": "summe",
+            "teile": [
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-D09.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w12",
+                "filter": {
+                  "Schulart": "=Realschulen",
+                  "Beschäftigungsumfang": "=Insgesamt",
+                  "Trägerschaft": "=staatlich"
+                },
+                "strich_als_null": true
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-D09.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w12",
+                "filter": {
+                  "Schulart": "=Realschulen",
+                  "Beschäftigungsumfang": "=Insgesamt",
+                  "Trägerschaft": "=kommunal"
+                },
+                "strich_als_null": true
+              }
+            ]
+          }
+        }
+      ],
+      "erlaeuterung_gruppe": "realschule"
+    },
+    {
+      "id": "rs_lk_teilzeit",
+      "name": "Teilzeitlehrkräfte an Realschulen",
+      "einheit": "%",
+      "nachkommastellen": 1,
+      "beschreibung": "Anteil der teilzeitbeschäftigten Lehrkräfte an öffentlichen Realschulen (BY-D09.1i). Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "im_index": false,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "quotient",
+          "faktor": 100,
+          "zaehler": {
+            "typ": "summe",
+            "teile": [
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-D09.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w12",
+                "filter": {
+                  "Schulart": "=Realschulen",
+                  "Beschäftigungsumfang": "=Teilzeitbeschäftigt",
+                  "Trägerschaft": "=staatlich"
+                },
+                "strich_als_null": true
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-D09.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w12",
+                "filter": {
+                  "Schulart": "=Realschulen",
+                  "Beschäftigungsumfang": "=Teilzeitbeschäftigt",
+                  "Trägerschaft": "=kommunal"
+                },
+                "strich_als_null": true
+              }
+            ]
+          },
+          "nenner": {
+            "typ": "summe",
+            "teile": [
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-D09.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w12",
+                "filter": {
+                  "Schulart": "=Realschulen",
+                  "Beschäftigungsumfang": "=Insgesamt",
+                  "Trägerschaft": "=staatlich"
+                },
+                "strich_als_null": true
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-D09.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w12",
+                "filter": {
+                  "Schulart": "=Realschulen",
+                  "Beschäftigungsumfang": "=Insgesamt",
+                  "Trägerschaft": "=kommunal"
+                },
+                "strich_als_null": true
+              }
+            ]
+          }
+        }
+      ],
+      "erlaeuterung_gruppe": "realschule"
+    },
+    {
+      "id": "weg_rs",
+      "name": "Entfernung zur nächsten Realschule",
+      "einheit": "km",
+      "nachkommastellen": 1,
+      "beschreibung": "Luftlinie vom Mittelpunkt der Gemeindefläche zur nächsten Realschule; Kreise: Mittel ihrer Gemeinden. Aktueller Schulbestand, für alle Jahre verwendet. Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": -1,
+      "im_index": false,
+      "ebenen": [
+        "kreis",
+        "gemeinde"
+      ],
+      "zeitlich_konstant": true,
+      "quellen": [
+        {
+          "typ": "schulen",
+          "schulart": "realschule"
+        }
+      ],
+      "erlaeuterung": "Luftlinie vom Mittelpunkt der Gemeindefläche zum nächsten Realschulstandort; berücksichtigt sind Realschulen aller Träger (staatlich, kommunal, kirchlich, privat), einschließlich der Realschulen zur sonderpädagogischen Förderung, auch jenseits der Kreisgrenze. Der Kreiswert ist der ungewichtete Mittelwert seiner Gemeinden. Die tatsächlichen Schulwege sind länger als die Luftlinie. Es gilt der aktuelle Schulbestand, für frühere Jahre unverändert verwendet. Quelle: Schulstandorte in Bayern, Bayerisches Staatsministerium für Unterricht und Kultus (CC BY 4.0), ergänzt um eigene Korrekturen."
+    },
+    {
       "id": "azubi_hw",
       "name": "Auszubildende im Handwerk",
       "einheit": "%",
