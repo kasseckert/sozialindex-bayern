@@ -212,7 +212,8 @@
           "typ": "csv",
           "datei": "u3.csv"
         }
-      ]
+      ],
+      "erlaeuterung": "Anteil der Kinder unter drei Jahren, die in einer Kindertageseinrichtung oder in Kindertagespflege betreut werden, an allen Kindern dieser Altersgruppe. Stichtag ist jeweils der 1. März. Quelle: Statistik der Kinder- und Jugendhilfe (Kindertagesbetreuung), abgerufen über den Regionalatlas Deutschland."
     },
     {
       "id": "ohneabschl",
@@ -235,7 +236,8 @@
           "typ": "csv",
           "datei": "ohneabschl.csv"
         }
-      ]
+      ],
+      "erlaeuterung": "Anteil der Schulabgängerinnen und -abgänger allgemeinbildender Schulen, die die Schule ohne Hauptschulabschluss verlassen (in Bayern: ohne erfolgreichen Abschluss der Mittelschule), an allen Abgängerinnen und Abgängern des Schuljahres. Mitgezählt werden auch Abgänge von Förderschulen. Gezählt wird am Ort der Schule. Quelle: Schulstatistik, Regionalatlas Deutschland."
     },
     {
       "id": "ganztag",
@@ -254,7 +256,8 @@
           "code": "AI-N-05",
           "feld": "ai0312"
         }
-      ]
+      ],
+      "erlaeuterung": "Anteil der Kinder von drei bis unter sechs Jahren, die mehr als sieben Stunden täglich in einer Kindertageseinrichtung oder in Kindertagespflege betreut werden, an allen Kindern dieser Altersgruppe. Stichtag 1. März. Quelle: Statistik der Kinder- und Jugendhilfe, Regionalatlas Deutschland."
     },
     {
       "id": "uebertritt",
@@ -273,7 +276,10 @@
           "datei": "uebertritt_gymnasium.csv",
           "quellenangabe": "Bayerischer Landtag, Antworten des Kultusministeriums auf Schriftliche Anfragen"
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "uebertritt",
+      "erlaeuterung_titel": "Übertrittsquoten an Gymnasium und Realschule",
+      "erlaeuterung": "Anteil der Schülerinnen und Schüler der Jahrgangsstufe 4, die zum folgenden Schuljahr an ein Gymnasium bzw. eine Realschule übertreten. Gezählt wird am Ort der Grundschule, also im Wesentlichen nach dem Wohnort der Kinder. Das Jahr bezeichnet das Schuljahr, zu dem übergetreten wird (2024 = Schuljahr 2024/25). Der Wert ist der Mittelwert der vom Kultusministerium getrennt angegebenen Quoten für Jungen und Mädchen. Quelle: Antworten des Bayerischen Staatsministeriums für Unterricht und Kultus auf Schriftliche Anfragen im Bayerischen Landtag („Übertrittsquoten in Bayern“); für 2019 liegt keine Antwort vor."
     },
     {
       "id": "uebertritt_rs",
@@ -293,7 +299,8 @@
           "datei": "uebertritt_realschule.csv",
           "quellenangabe": "Bayerischer Landtag, Antworten des Kultusministeriums auf Schriftliche Anfragen"
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "uebertritt"
     },
     {
       "id": "eignung_gym",
@@ -313,7 +320,10 @@
           "datei": "eignung_gymnasium.csv",
           "quellenangabe": "Bayerischer Landtag, Antworten des Kultusministeriums auf Schriftliche Anfragen"
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "eignung",
+      "erlaeuterung_titel": "Gymnasial- und Realschuleignung im Übertrittszeugnis",
+      "erlaeuterung": "Anteil der Schülerinnen und Schüler der Jahrgangsstufe 4, denen das Übertrittszeugnis die Eignung für das Gymnasium bescheinigt, bzw. die Eignung für die Realschule, aber nicht für das Gymnasium. Grundlage ist der Notendurchschnitt in Deutsch, Mathematik sowie Heimat- und Sachunterricht (Gymnasium bis 2,33, Realschule bis 2,66). Die beiden Anteile schließen sich gegenseitig aus. Gezählt am Ort der Grundschule; Mittelwert aus Jungen- und Mädchenquote. Quelle wie bei den Übertrittsquoten (Bayerischer Landtag)."
     },
     {
       "id": "eignung_rs",
@@ -333,7 +343,8 @@
           "datei": "eignung_realschule.csv",
           "quellenangabe": "Bayerischer Landtag, Antworten des Kultusministeriums auf Schriftliche Anfragen"
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "eignung"
     },
     {
       "id": "abi",
@@ -353,7 +364,8 @@
           "code": "AI003-2",
           "feld": "ai0304"
         }
-      ]
+      ],
+      "erlaeuterung": "Anteil der Schulabgängerinnen und -abgänger allgemeinbildender Schulen mit allgemeiner Hochschulreife an allen Abgängerinnen und Abgängern des Schuljahres. Nicht enthalten ist die Hochschulreife an beruflichen Schulen wie FOS und BOS. Gezählt am Ort der Schule. Quelle: Schulstatistik, Regionalatlas Deutschland."
     },
     {
       "id": "sch_ausl",
@@ -430,7 +442,8 @@
             ]
           }
         }
-      ]
+      ],
+      "erlaeuterung": "Anteil der Schülerinnen und Schüler ohne deutsche Staatsangehörigkeit an allen Schülerinnen und Schülern allgemeinbildender Schulen. Maßgeblich ist die Staatsangehörigkeit, nicht ein Migrationshintergrund. Erfasst sind öffentliche Schulen (staatliche und kommunale Träger); Werte für Privatschulen veröffentlicht die Kommunale Bildungsdatenbank auf Kreisebene nicht. Gezählt am Ort der Schule. Quelle: Kommunale Bildungsdatenbank, Tabelle BY-D07.1i."
     },
     {
       "id": "sch_je_lk",
@@ -657,7 +670,10 @@
             ]
           }
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "einschulung",
+      "erlaeuterung_titel": "Spät und früh eingeschulte Kinder",
+      "erlaeuterung": "Anteil der Schulanfängerinnen und Schulanfänger, die später bzw. früher als im Regelfall eingeschult werden, an allen Schulanfängerinnen und Schulanfängern. Spät eingeschult sind vor allem zurückgestellte Kinder sowie Kinder im Einschulungskorridor (seit 2019 können Eltern von Kindern, die zwischen Juli und September sechs Jahre alt werden, die Einschulung um ein Jahr verschieben); der deutliche Anstieg ab 2019 geht im Wesentlichen darauf zurück. Früh eingeschult sind Kinder, die auf Antrag vor Erreichen des Einschulungsalters aufgenommen werden. Erfasst sind öffentliche Schulen; berechnet aus den Anzahlen. Gezählt am Ort der Schule. Quelle: Kommunale Bildungsdatenbank, Tabelle BY-D11.1i."
     },
     {
       "id": "einsch_frueh",
@@ -730,7 +746,8 @@
             ]
           }
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "einschulung"
     },
     {
       "id": "ue_ms",
@@ -756,7 +773,10 @@
           },
           "strich_als_null": true
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "fuenftklaessler",
+      "erlaeuterung_titel": "Fünftklässler nach Schulart (am Schulort)",
+      "erlaeuterung": "Verteilung aller Schülerinnen und Schüler in den Eingangsklassen (Jahrgangsstufe 5) der weiterführenden Schulen im Kreis auf Mittelschulen, Realschulen, Gymnasien und sonstige Schulen (z. B. Förderzentren, Integrierte Gesamtschulen, Freie Waldorfschulen); zusammen 100 %. Gezählt wird am Ort der weiterführenden Schule: In Städten mit großem Einzugsgebiet, etwa für Gymnasien, sind die Anteile deshalb höher, im Umland entsprechend niedriger. 0 % bedeutet, dass es diese Schulart im Kreis nicht gibt. Für den Übertritt der Kinder eines Kreises ist die Übertrittsquote maßgeblich. Quelle: Kommunale Bildungsdatenbank, Tabelle BY-D12.1i."
     },
     {
       "id": "ue_gym_kbd",
@@ -782,7 +802,8 @@
           },
           "strich_als_null": true
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "fuenftklaessler"
     },
     {
       "id": "ue_rs_kbd",
@@ -808,7 +829,8 @@
           },
           "strich_als_null": true
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "fuenftklaessler"
     },
     {
       "id": "ue_sonst_kbd",
@@ -862,7 +884,8 @@
             }
           ]
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "fuenftklaessler"
     },
     {
       "id": "wechsel_gym_rs",
@@ -889,7 +912,10 @@
           },
           "quellenangabe": "Kommunale Bildungsdatenbank, Bayern – Allgemeinbildende Schulen (09--D)"
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "wechsel",
+      "erlaeuterung_titel": "Schulartwechsel in den Jahrgangsstufen 7 bis 9",
+      "erlaeuterung": "Quote der Schülerinnen und Schüler der Jahrgangsstufen 7 bis 9, die von der genannten Herkunftsschulart an die genannte Zielschulart wechseln, bezogen auf die Schülerinnen und Schüler der Herkunftsschulart in diesen Jahrgangsstufen. Die Quote wird von der Kommunalen Bildungsdatenbank berechnet und unverändert übernommen. Bei kleinen Schülerzahlen können die Werte von Jahr zu Jahr stark schwanken. Quelle: Kommunale Bildungsdatenbank, Tabelle BY-D12.3i."
     },
     {
       "id": "wechsel_rs_ms",
@@ -916,7 +942,8 @@
           },
           "quellenangabe": "Kommunale Bildungsdatenbank, Bayern – Allgemeinbildende Schulen (09--D)"
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "wechsel"
     },
     {
       "id": "wechsel_ms_rs",
@@ -943,7 +970,8 @@
           },
           "quellenangabe": "Kommunale Bildungsdatenbank, Bayern – Allgemeinbildende Schulen (09--D)"
         }
-      ]
+      ],
+      "erlaeuterung_gruppe": "wechsel"
     },
     {
       "id": "ohne_beruf",
@@ -985,7 +1013,8 @@
             }
           }
         }
-      ]
+      ],
+      "erlaeuterung": "Anteil der Personen ab 15 Jahren ohne beruflichen Bildungsabschluss (keine abgeschlossene Ausbildung, kein Fachschul- oder Hochschulabschluss) an allen Personen ab 15 Jahren. Dazu zählen auch junge Menschen, die sich noch in Schule, Ausbildung oder Studium befinden. Stichtag ist der Zensus vom 15. Mai 2022; der Wert wird für die übrigen Jahre unverändert fortgeschrieben. Quelle: Zensus 2022, Statistische Ämter des Bundes und der Länder."
     },
     {
       "id": "ausbildung",
