@@ -338,6 +338,13 @@ input[type="range"] { width: 100%; accent-color: var(--s7); margin: 2px 0; }
   #druckansicht table.uebersicht tr.vergleich td { font-weight: 700; background: #f2f2f2; border-bottom: 1px solid #bbb; }
   #druckansicht table.uebersicht tr.vergleich.erste td { border-top: 1.5px solid #1a1a1a; }
   #druckansicht .punkt { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
+  #druckansicht .druck-erlaeuterungen { margin-top: 6mm; break-before: auto; }
+  #druckansicht .druck-erlaeuterungen .druck-fuss { margin-top: 3mm; break-before: avoid; }
+  #druckansicht .druck-erlaeuterungen dl { margin: 2mm 0 0; column-count: 2; column-gap: 7mm; font-size: 8pt; line-height: 1.35; }
+  #druckansicht .druck-erlaeuterungen .erl { break-inside: avoid; margin: 0 0 3mm; }
+  #druckansicht .druck-erlaeuterungen dt { font-weight: 700; }
+  #druckansicht .druck-erlaeuterungen dd { margin: 0; }
+  #druckansicht .druck-erlaeuterungen dd.erl-namen { color: #555; font-style: italic; }
   #druckansicht .druck-fuss { margin-top: 8mm; font-size: 8pt; color: #555; border-top: 1px solid #ccc; padding-top: 3mm; }
 }
 

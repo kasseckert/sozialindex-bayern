@@ -737,7 +737,9 @@
       Chart.defaults.color = alteFarbe; Chart.defaults.animation = alteAnimation; Chart.defaults.devicePixelRatio = alteDichte;
     }
     const kopf = document.querySelector(".leaflet-popup .pop .pop-kopf")?.outerHTML || "";
+    const erlaeuterungen = erlaeuterungenHtml(tabelle).trim();
     const stand = Z.daten.meta.erstellt ? new Date(Z.daten.meta.erstellt).toLocaleDateString("de-DE") : "";
+    const fuss = `<footer class="druck-fuss">Berechnet am ${esc(stand)}. Quellen, Methodik und Lizenzen: ${esc(location.href.split("#")[0])}#${esc(Z.region)} (Abschnitt „Quellen und Lizenzen“).</footer>`;
     const bereich = $("#druckansicht");
     bereich.innerHTML = `
       <header class="druck-kopf">
@@ -750,7 +752,7 @@
         <section><h2>Verlauf: ${esc(merkmalName())}</h2>${verlauf.bild ? `<img src="${verlauf.bild}" alt="Verlauf">` : "<p>Kein Verlauf verfügbar.</p>"}<p class="druck-notiz">${esc(verlauf.notiz)}</p></section>
       </div>
       <section class="druck-tabelle"><h2>Kennzahlen ${Z.jahr}</h2>${tabelle}<p class="druck-notiz">${esc(tabNotiz)}</p></section>
-      <footer class="druck-fuss">Berechnet am ${esc(stand)}. Quellen, Methodik und Lizenzen: ${esc(location.href.split("#")[0])}#${esc(Z.region)} (Abschnitt „Quellen und Lizenzen“).</footer>`;
+      ${erlaeuterungen ? erlaeuterungen.replace(/<\/section>$/, fuss + "</section>") : fuss}`;
     document.body.classList.add("drucken");
     const wurzelD = document.documentElement, schemaD = wurzelD.dataset.theme;
     wurzelD.dataset.theme = "light";        // Seitenränder nie dunkel drucken
@@ -762,6 +764,38 @@
     // erst drucken, wenn die Diagrammbilder geladen sind
     Promise.all([...bereich.querySelectorAll("img")].map((i) => i.complete ? null : new Promise((r) => { i.onload = r; i.onerror = r; })))
       .then(() => setTimeout(() => window.print(), 50));
+  }
+
+  /**
+   * Abschnitt „Erläuterungen“ für die Druckansicht: erklärt, wie die Kennzahlen der Tabelle zustande kommen.
+   * Texte stehen in konfiguration/indikatoren.json (Felder erlaeuterung, erlaeuterung_gruppe, erlaeuterung_titel);
+   * Indikatoren einer Gruppe teilen sich eine Erläuterung. Aufgenommen wird nur, was in der Tabelle steht.
+   */
+  function erlaeuterungenHtml(tabelle) {
+    const gruppen = new Map();
+    for (const ind of Z.daten.meta.indikatoren) {
+      if (!tabelle.includes(`>${esc(ind.name)}<`)) continue;
+      const schluessel = ind.erlaeuterung_gruppe || ind.id;
+      if (!gruppen.has(schluessel)) gruppen.set(schluessel, { titel: "", text: "", namen: [] });
+      const g = gruppen.get(schluessel);
+      g.namen.push(ind.name);
+      if (ind.erlaeuterung_titel) g.titel = ind.erlaeuterung_titel;
+      if (ind.erlaeuterung) g.text = ind.erlaeuterung;
+    }
+    // Texte, die in einem Gruppenmitglied außerhalb der Tabelle stehen, trotzdem finden
+    for (const [schluessel, g] of gruppen) {
+      if (!g.text) g.text = Z.daten.meta.indikatoren.find((i) => (i.erlaeuterung_gruppe || i.id) === schluessel && i.erlaeuterung)?.erlaeuterung || "";
+      if (!g.titel) g.titel = Z.daten.meta.indikatoren.find((i) => (i.erlaeuterung_gruppe || i.id) === schluessel && i.erlaeuterung_titel)?.erlaeuterung_titel || "";
+    }
+    const position = (g) => Math.min(...g.namen.map((n) => tabelle.indexOf(`>${esc(n)}<`)));
+    const eintraege = [...gruppen.values()].filter((g) => g.text).sort((a, b) => position(a) - position(b));
+    if (!eintraege.length) return "";
+    const hinweis = Z.ebene === "gemeinde"
+      ? `<p class="druck-notiz">Diese Kennzahlen liegen nur für Kreise und kreisfreie Städte vor. Für die Gemeinde ist jeweils der Wert ihres Kreises angegeben.</p>` : "";
+    return `<section class="druck-erlaeuterungen"><h2>Erläuterungen</h2>${hinweis}
+      <dl>${eintraege.map((g) => `<div class="erl"><dt>${esc(g.titel || g.namen[0])}</dt>
+        ${g.namen.length > 1 || g.titel ? `<dd class="erl-namen">${g.namen.map(esc).join("; ")}</dd>` : ""}
+        <dd>${esc(g.text)}</dd></div>`).join("")}</dl></section>`;
   }
 
   // ------------------------------------------------------------ Bezirksübersicht (Druck)
