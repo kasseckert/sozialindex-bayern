@@ -1260,6 +1260,293 @@
       "erlaeuterung": "Luftlinie vom Mittelpunkt der Gemeindefläche zum nächsten Realschulstandort; berücksichtigt sind Realschulen aller Träger (staatlich, kommunal, kirchlich, privat), einschließlich der Realschulen zur sonderpädagogischen Förderung, auch jenseits der Kreisgrenze. Der Kreiswert ist der ungewichtete Mittelwert seiner Gemeinden. Die tatsächlichen Schulwege sind länger als die Luftlinie. Es gilt der aktuelle Schulbestand, für frühere Jahre unverändert verwendet. Quelle: Schulstandorte in Bayern, Bayerisches Staatsministerium für Unterricht und Kultus (CC BY 4.0), ergänzt um eigene Korrekturen."
     },
     {
+      "id": "kinder_gs",
+      "name": "Kinder im Grundschulalter (6 bis unter 10 Jahre)",
+      "einheit": "",
+      "nachkommastellen": 0,
+      "beschreibung": "Zahl der Kinder von 6 bis unter 10 Jahren im Kreis (BY-A01.2i). Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "im_index": false,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "genesis",
+          "datenbank": "bildung",
+          "tabelle": "BY-A01.2i",
+          "regionalvariable": "BY-KRE",
+          "wert_spalte": "bevstd",
+          "filter": {
+            "Altersgruppen": "=6 bis unter 10 Jahre"
+          }
+        }
+      ],
+      "erlaeuterung_gruppe": "kinder",
+      "erlaeuterung_titel": "Kinder und Jugendliche: Bestand, Entwicklung, Wanderung",
+      "erlaeuterung": "Kinder im Grundschulalter sind die Einwohnerinnen und Einwohner von 6 bis unter 10 Jahren am Jahresende (Bevölkerungsfortschreibung); ihre Zahl und deren Entwicklung gegenüber fünf Jahren zuvor zeigen, wie sich die Übertritte an weiterführende Schulen in den kommenden ein bis vier Jahren entwickeln dürften. Der Wanderungssaldo der unter 18-Jährigen ist die Zahl der Zuzüge minus der Fortzüge über die Kreisgrenze, die Zuzüge sind die Zuzüge über die Kreisgrenze, jeweils je 1.000 Einwohnerinnen und Einwohner unter 18 Jahren. Die Zuzüge umfassen auch Zuwanderung aus dem Ausland und damit Kinder und Jugendliche, die neu in das Schulsystem kommen. Quelle: Bevölkerungs- und Wanderungsstatistik, Kommunale Bildungsdatenbank, Tabellen BY-A01.2i und BY-A01.5i."
+    },
+    {
+      "id": "kinder_gs_entw",
+      "name": "Entwicklung der Kinder im Grundschulalter (5 Jahre)",
+      "einheit": "%",
+      "nachkommastellen": 1,
+      "beschreibung": "Veränderung der Zahl der Kinder von 6 bis unter 10 Jahren gegenüber fünf Jahren zuvor (BY-A01.2i). Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "im_index": false,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "veraenderung",
+          "jahre": 5,
+          "quelle": {
+            "typ": "genesis",
+            "datenbank": "bildung",
+            "tabelle": "BY-A01.2i",
+            "regionalvariable": "BY-KRE",
+            "wert_spalte": "bevstd",
+            "filter": {
+              "Altersgruppen": "=6 bis unter 10 Jahre"
+            }
+          }
+        }
+      ],
+      "erlaeuterung_gruppe": "kinder"
+    },
+    {
+      "id": "wand_u18",
+      "name": "Wanderungssaldo der unter 18-Jährigen je 1.000",
+      "einheit": "je 1.000",
+      "nachkommastellen": 1,
+      "beschreibung": "Zuzüge minus Fortzüge von Kindern und Jugendlichen unter 18 Jahren über die Kreisgrenze je 1.000 Einwohner unter 18 Jahren (BY-A01.5i, BY-A01.2i). Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "im_index": false,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "quotient",
+          "faktor": 1000,
+          "zaehler": {
+            "typ": "genesis",
+            "datenbank": "bildung",
+            "tabelle": "BY-A01.5i",
+            "regionalvariable": "BY-KRE",
+            "wert_spalte": "bevueb",
+            "filter": {
+              "Altersgruppen": "=unter 18 Jahre"
+            }
+          },
+          "nenner": {
+            "typ": "summe",
+            "teile": [
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-A01.2i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "bevstd",
+                "filter": {
+                  "Altersgruppen": "=unter 3 Jahre"
+                }
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-A01.2i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "bevstd",
+                "filter": {
+                  "Altersgruppen": "=3 bis unter 6 Jahre"
+                }
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-A01.2i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "bevstd",
+                "filter": {
+                  "Altersgruppen": "=6 bis unter 10 Jahre"
+                }
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-A01.2i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "bevstd",
+                "filter": {
+                  "Altersgruppen": "=10 bis unter 15 Jahre"
+                }
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-A01.2i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "bevstd",
+                "filter": {
+                  "Altersgruppen": "=15 bis unter 18 Jahre"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "erlaeuterung_gruppe": "kinder"
+    },
+    {
+      "id": "zuzug_u18",
+      "name": "Zuzüge von unter 18-Jährigen je 1.000",
+      "einheit": "je 1.000",
+      "nachkommastellen": 1,
+      "beschreibung": "Zuzüge von Kindern und Jugendlichen unter 18 Jahren über die Kreisgrenze je 1.000 Einwohner unter 18 Jahren (BY-A01.5i, BY-A01.2i). Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "im_index": false,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "quotient",
+          "faktor": 1000,
+          "zaehler": {
+            "typ": "genesis",
+            "datenbank": "bildung",
+            "tabelle": "BY-A01.5i",
+            "regionalvariable": "BY-KRE",
+            "wert_spalte": "bev085",
+            "filter": {
+              "Altersgruppen": "=unter 18 Jahre"
+            }
+          },
+          "nenner": {
+            "typ": "summe",
+            "teile": [
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-A01.2i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "bevstd",
+                "filter": {
+                  "Altersgruppen": "=unter 3 Jahre"
+                }
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-A01.2i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "bevstd",
+                "filter": {
+                  "Altersgruppen": "=3 bis unter 6 Jahre"
+                }
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-A01.2i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "bevstd",
+                "filter": {
+                  "Altersgruppen": "=6 bis unter 10 Jahre"
+                }
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-A01.2i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "bevstd",
+                "filter": {
+                  "Altersgruppen": "=10 bis unter 15 Jahre"
+                }
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-A01.2i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "bevstd",
+                "filter": {
+                  "Altersgruppen": "=15 bis unter 18 Jahre"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "erlaeuterung_gruppe": "kinder"
+    },
+    {
+      "id": "hzb_beruf",
+      "name": "(Fach-)Hochschulreife an beruflichen Schulen",
+      "einheit": "je 100",
+      "nachkommastellen": 1,
+      "beschreibung": "An beruflichen Schulen (v. a. FOS und BOS) erworbene Hochschul- und Fachhochschulreife je 100 Personen eines Altersjahrgangs der 18- und 19-Jährigen (BY-E15.1i, BY-A01.2i). Gezählt am Ort der Schule. Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "im_index": false,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "quotient",
+          "faktor": 200,
+          "zaehler": {
+            "typ": "summe",
+            "teile": [
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-E15.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w11",
+                "filter": {
+                  "Schulart": "=Hochschulreife"
+                },
+                "strich_als_null": true
+              },
+              {
+                "typ": "genesis",
+                "datenbank": "bildung",
+                "tabelle": "BY-E15.1i",
+                "regionalvariable": "BY-KRE",
+                "wert_spalte": "by-w11",
+                "filter": {
+                  "Schulart": "=Fachhochschulreife"
+                },
+                "strich_als_null": true
+              }
+            ]
+          },
+          "nenner": {
+            "typ": "genesis",
+            "datenbank": "bildung",
+            "tabelle": "BY-A01.2i",
+            "regionalvariable": "BY-KRE",
+            "wert_spalte": "bevstd",
+            "filter": {
+              "Altersgruppen": "=18 bis unter 20 Jahre"
+            }
+          }
+        }
+      ],
+      "erlaeuterung_gruppe": "hzb",
+      "erlaeuterung_titel": "(Fach-)Hochschulreife an beruflichen Schulen",
+      "erlaeuterung": "Zahl der an beruflichen Schulen erworbenen allgemeinen Hochschulreife und Fachhochschulreife, vor allem an Fachober- und Berufsoberschulen, bezogen auf einen durchschnittlichen Altersjahrgang der 18- und 19-Jährigen im Kreis (Einwohner von 18 bis unter 20 Jahren geteilt durch zwei), je 100. Der Wert ergänzt die Abiturquote der allgemeinbildenden Schulen um den Weg über die berufliche Oberschule, der für Absolventinnen und Absolventen der Realschule typisch ist. Gezählt wird am Ort der Schule: Kreise mit FOS oder BOS liegen deshalb hoch, Kreise ohne entsprechend niedrig; zudem stammen nicht alle Absolventen aus dieser Altersgruppe. Quelle: Kommunale Bildungsdatenbank, Tabellen BY-E15.1i und BY-A01.2i."
+    },
+    {
       "id": "azubi_hw",
       "name": "Auszubildende im Handwerk",
       "einheit": "%",
