@@ -1,4 +1,25 @@
 {
   "hinweis": "Tabellen, deren Aufbau der Workflow erkundet (Ergebnis: daten/genesis_struktur.md). Derzeit leer; für neue Indikatoren hier Einträge wie {\"datenbank\": \"bildung\", \"tabelle\": \"BY-D13.1i\", \"regionalvariable\": \"BY-KRE\"} ergänzen.",
-  "tabellen": []
+  "tabellen": [
+    {
+      "datenbank": "bildung",
+      "tabelle": "BY-E12.1i",
+      "regionalvariable": "BY-KRE"
+    },
+    {
+      "datenbank": "bildung",
+      "tabelle": "BY-E15.1i",
+      "regionalvariable": "BY-KRE"
+    },
+    {
+      "datenbank": "bildung",
+      "tabelle": "BY-A01.2i",
+      "regionalvariable": "BY-KRE"
+    },
+    {
+      "datenbank": "bildung",
+      "tabelle": "BY-A01.5i",
+      "regionalvariable": "BY-KRE"
+    }
+  ]
 }

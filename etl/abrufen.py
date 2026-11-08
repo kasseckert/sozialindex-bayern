@@ -144,7 +144,7 @@ def _genesis_zeilen(datenbank: str, tabelle: str, ebene: str, spec: dict):
         return _genesis_cache[schluessel]
     if schluessel in _genesis_fehler:          # nicht zweimal am selben Fehler warten
         raise _genesis_fehler[schluessel]
-    zusatz = spec.get("jahre", 0) if spec.get("berechnung") == "veraenderung" else 0
+    zusatz = max(5, spec.get("jahre", 0) if spec.get("berechnung") == "veraenderung" else 0)   # Vorlauf für Veränderungen
     try:
         zeilen, rv = tabelle_fuer_ebene(datenbank, tabelle, min(K.JAHRE) - zusatz, max(K.JAHRE), ebene,
                                         K.REGIERUNGSBEZIRK_PRAEFIX, len(gebiete(ebene)), spec.get("regionalvariable"))
@@ -215,6 +215,20 @@ def quelle_summe(spec: dict, ebene: str):
     schluessel = set(teile[0][0]).intersection(*[set(t[0]) for t in teile[1:]])
     werte = {k: sum(t[0][k] for t in teile) for k in schluessel}
     return werte, "summe(" + ", ".join(t[1] for t in teile) + ")", dict(teile[0][2])
+
+
+def quelle_veraenderung(spec: dict, ebene: str):
+    """
+    Veränderung einer Größe in Prozent gegenüber dem Wert n Jahre zuvor, z. B. Entwicklung der
+    Schülerzahl an Realschulen über fünf Jahre. Die innere Quelle liefert die Größe selbst.
+    """
+    n = spec.get("jahre", 5)
+    innen = QUELLEN[spec["quelle"]["typ"]](spec["quelle"], ebene)
+    if not innen:
+        return None
+    w, herkunft, info = innen
+    werte = {(a, j): 100 * (v / w[(a, j - n)] - 1) for (a, j), v in w.items() if w.get((a, j - n))}
+    return werte, f"veraenderung({n} J.: {herkunft})", info
 
 
 def quelle_rest(spec: dict, ebene: str):
@@ -433,7 +447,7 @@ def genesis_katalog_schreiben():
 
 QUELLEN = {"regionalatlas": quelle_regionalatlas, "csv": quelle_csv, "genesis": quelle_genesis,
            "quotient": quelle_quotient, "schulen": quelle_schulen, "summe": quelle_summe,
-           "rest": quelle_rest}
+           "rest": quelle_rest, "veraenderung": quelle_veraenderung}
 
 
 def abdeckung(werte: dict, anzahl_gebiete: int) -> float:
