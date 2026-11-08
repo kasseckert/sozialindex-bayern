@@ -974,6 +974,90 @@
       "erlaeuterung_gruppe": "wechsel"
     },
     {
+      "id": "azubi_hw",
+      "name": "Auszubildende im Handwerk",
+      "einheit": "%",
+      "nachkommastellen": 1,
+      "beschreibung": "Anteil der Auszubildenden in Handwerksberufen an allen Auszubildenden im Kreis (BY-E07.6i). Gezählt am Sitz der Ausbildungsstätte. Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "im_index": false,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "quotient",
+          "faktor": 100,
+          "zaehler": {
+            "typ": "genesis",
+            "datenbank": "bildung",
+            "tabelle": "BY-E07.6i",
+            "regionalvariable": "BY-KRE",
+            "wert_spalte": "bbs-w1",
+            "filter": {
+              "Ausbildungsbereich": "=Handwerk"
+            },
+            "strich_als_null": true
+          },
+          "nenner": {
+            "typ": "genesis",
+            "datenbank": "bildung",
+            "tabelle": "BY-E07.6i",
+            "regionalvariable": "BY-KRE",
+            "wert_spalte": "bbs-w1",
+            "filter": {
+              "Ausbildungsbereich": "=Insgesamt"
+            }
+          }
+        }
+      ],
+      "erlaeuterung_gruppe": "azubi",
+      "erlaeuterung_titel": "Auszubildende nach Ausbildungsbereichen",
+      "erlaeuterung": "Anteil der Auszubildenden in Handwerksberufen bzw. in Berufen aus Industrie und Handel an allen Auszubildenden im Kreis. Die Anteile beschreiben, wie die duale Ausbildung im Kreis wirtschaftlich geprägt ist; die übrigen Bereiche sind Freie Berufe, Öffentlicher Dienst, Landwirtschaft, Hauswirtschaft und Seeschifffahrt. Die Auszubildenden werden in der Berufsbildungsstatistik in der Regel nach dem Sitz der Ausbildungsstätte gezählt, nicht nach dem Wohnort. Quelle: Berufsbildungsstatistik, Kommunale Bildungsdatenbank, Tabelle BY-E07.6i."
+    },
+    {
+      "id": "azubi_ih",
+      "name": "Auszubildende in Industrie und Handel",
+      "einheit": "%",
+      "nachkommastellen": 1,
+      "beschreibung": "Anteil der Auszubildenden in Berufen aus Industrie und Handel an allen Auszubildenden im Kreis (BY-E07.6i). Gezählt am Sitz der Ausbildungsstätte. Kontextindikator",
+      "dimension": "bildung",
+      "polaritaet": 1,
+      "im_index": false,
+      "ebenen": [
+        "kreis"
+      ],
+      "quellen": [
+        {
+          "typ": "quotient",
+          "faktor": 100,
+          "zaehler": {
+            "typ": "genesis",
+            "datenbank": "bildung",
+            "tabelle": "BY-E07.6i",
+            "regionalvariable": "BY-KRE",
+            "wert_spalte": "bbs-w1",
+            "filter": {
+              "Ausbildungsbereich": "=Industrie und Handel"
+            },
+            "strich_als_null": true
+          },
+          "nenner": {
+            "typ": "genesis",
+            "datenbank": "bildung",
+            "tabelle": "BY-E07.6i",
+            "regionalvariable": "BY-KRE",
+            "wert_spalte": "bbs-w1",
+            "filter": {
+              "Ausbildungsbereich": "=Insgesamt"
+            }
+          }
+        }
+      ],
+      "erlaeuterung_gruppe": "azubi"
+    },
+    {
       "id": "ohne_beruf",
       "name": "Ohne beruflichen Abschluss",
       "einheit": "%",
@@ -1112,27 +1196,6 @@
           "quellenangabe": "Kassenärztliche Vereinigung Bayerns bzw. BBSR INKAR"
         }
       ]
-    },
-    {
-      "id": "by_e07_6i",
-      "name": "E7.6: Auszubildende nach Ausbildungsbereichen",
-      "einheit": "",
-      "nachkommastellen": 1,
-      "beschreibung": "Auszubildende nach Ausbildungsbereichen (BY-E07.6i). Vorläufiger Eintrag: Messgröße und Filter werden nach der Erkundung der Tabelle festgelegt. Kontextindikator",
-      "dimension": "bildung",
-      "polaritaet": 1,
-      "ebenen": [
-        "kreis"
-      ],
-      "quellen": [
-        {
-          "typ": "genesis",
-          "datenbank": "bildung",
-          "tabelle": "BY-E07.6i",
-          "regionalvariable": "BY-KRE"
-        }
-      ],
-      "im_index": false
     }
   ]
 }
