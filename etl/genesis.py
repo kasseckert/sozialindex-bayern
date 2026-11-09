@@ -70,11 +70,46 @@ def hat_zugang(datenbank: str) -> bool:
 AUSFALL_GRENZE = 3
 _fehler_in_folge: dict = {}
 AUSGEFALLEN: dict = {}
+# Feste Obergrenzen: je Anfrage (auch wenn der Server tröpfchenweise sendet) und für alle Anfragen eines Laufs
+ANFRAGE_MAX_S = 180
+GESAMT_MAX_S = 20 * 60
+_start_gesamt = None
+
+
+def _anfrage_mit_frist(url: str, headers: dict, parameter: dict, lesezeit: int) -> requests.Response:
+    """
+    Führt die Anfrage in einem eigenen Arbeitsstrang aus und wartet höchstens ANFRAGE_MAX_S Sekunden.
+    So begrenzt die Frist auch Antworten, die der Server tröpfchenweise sendet und bei denen die
+    Lesezeitgrenze von requests nie auslöst. Ein überfälliger Strang läuft im Hintergrund aus.
+    """
+    import threading
+    ergebnis: dict = {}
+
+    def arbeit():
+        try:
+            ergebnis["r"] = requests.post(url, headers=headers, data=parameter, timeout=(15, lesezeit))
+        except Exception as e:     # an den Aufrufer weiterreichen
+            ergebnis["e"] = e
+
+    strang = threading.Thread(target=arbeit, daemon=True)
+    strang.start()
+    strang.join(ANFRAGE_MAX_S)
+    if strang.is_alive():
+        raise requests.exceptions.Timeout(f"keine vollständige Antwort nach {ANFRAGE_MAX_S} s (Server antwortet zu langsam)")
+    if "e" in ergebnis:
+        raise ergebnis["e"]
+    return ergebnis["r"]
 
 
 def _post(datenbank: str, pfad: str, parameter: dict, versuche: int = 2, lesezeit: int = 90) -> requests.Response:
     if datenbank not in BASIS_URL:
         raise GenesisFehler(f"Unbekannte Datenbank '{datenbank}'")
+    global _start_gesamt
+    if _start_gesamt is None:
+        _start_gesamt = time.time()
+    if time.time() - _start_gesamt > GESAMT_MAX_S:
+        for db in BASIS_URL:
+            AUSGEFALLEN.setdefault(db, f"Zeitbudget von {GESAMT_MAX_S // 60} Minuten aufgebraucht")
     if datenbank in AUSGEFALLEN:
         raise GenesisFehler(f"Datenbank {datenbank} in diesem Lauf nicht erreichbar ({AUSGEFALLEN[datenbank]}); Anfrage übersprungen")
     user, pw = _zugang(datenbank)
@@ -87,7 +122,7 @@ def _post(datenbank: str, pfad: str, parameter: dict, versuche: int = 2, lesezei
     letzter_fehler, ausfall = None, False
     for i in range(versuche):
         try:
-            r = requests.post(url, headers=headers, data=parameter, timeout=(15, lesezeit))
+            r = _anfrage_mit_frist(url, headers, parameter, lesezeit)
             if r.status_code == 200:
                 _fehler_in_folge[datenbank] = 0
                 return r
