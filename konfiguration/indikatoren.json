@@ -34,6 +34,23 @@
       "name": "Wohnen und Versorgung"
     }
   ],
+  "rubriken": [
+    {
+      "name": "Realschule",
+      "indikatoren": [
+        "uebertritt_rs",
+        "eignung_rs",
+        "ue_rs_kbd",
+        "wechsel_gym_rs",
+        "wechsel_rs_ms",
+        "wechsel_ms_rs",
+        "rs_entw",
+        "rs_sch_je_lk",
+        "rs_lk_teilzeit",
+        "weg_rs"
+      ]
+    }
+  ],
   "indikatoren": [
     {
       "id": "alq",
@@ -974,55 +991,6 @@
       "erlaeuterung_gruppe": "wechsel"
     },
     {
-      "id": "rs_schueler",
-      "name": "Schülerinnen und Schüler an Realschulen (öffentliche Schulen)",
-      "einheit": "",
-      "nachkommastellen": 0,
-      "beschreibung": "Zahl der Schülerinnen und Schüler an öffentlichen Realschulen im Kreis (BY-D07.1i). Kontextindikator",
-      "dimension": "bildung",
-      "polaritaet": 1,
-      "im_index": false,
-      "ebenen": [
-        "kreis"
-      ],
-      "quellen": [
-        {
-          "typ": "summe",
-          "teile": [
-            {
-              "typ": "genesis",
-              "datenbank": "bildung",
-              "tabelle": "BY-D07.1i",
-              "regionalvariable": "BY-KRE",
-              "wert_spalte": "by-w01",
-              "filter": {
-                "Schulart": "=Realschulen",
-                "Nationalität": "=Insgesamt",
-                "Trägerschaft": "=staatlich"
-              },
-              "strich_als_null": true
-            },
-            {
-              "typ": "genesis",
-              "datenbank": "bildung",
-              "tabelle": "BY-D07.1i",
-              "regionalvariable": "BY-KRE",
-              "wert_spalte": "by-w01",
-              "filter": {
-                "Schulart": "=Realschulen",
-                "Nationalität": "=Insgesamt",
-                "Trägerschaft": "=kommunal"
-              },
-              "strich_als_null": true
-            }
-          ]
-        }
-      ],
-      "erlaeuterung_gruppe": "realschule",
-      "erlaeuterung_titel": "Öffentliche Realschulen: Schülerzahl, Lehrkräfte",
-      "erlaeuterung": "Kennzahlen der öffentlichen Realschulen (staatliche und kommunale Träger) im Kreis, gezählt am Ort der Schule; Werte für Privatschulen, darunter die kirchlichen Realschulen, veröffentlicht die Kommunale Bildungsdatenbank auf Kreisebene nicht. Die Entwicklung der Schülerzahl ist die Veränderung in Prozent gegenüber dem Stand fünf Schuljahre zuvor. Schüler je Lehrkraft zählt die Lehrkräfte nach Köpfen, nicht nach Vollzeitstellen; ein hoher Teilzeitanteil senkt diesen Wert deshalb, ohne dass mehr Unterrichtskapazität vorhanden sein muss. Quelle: Kommunale Bildungsdatenbank, Tabellen BY-D07.1i und BY-D09.1i."
-    },
-    {
       "id": "rs_entw",
       "name": "Entwicklung der Schülerzahl an Realschulen (5 Jahre)",
       "einheit": "%",
@@ -1071,7 +1039,9 @@
           }
         }
       ],
-      "erlaeuterung_gruppe": "realschule"
+      "erlaeuterung_gruppe": "realschule",
+      "erlaeuterung_titel": "Öffentliche Realschulen: Schülerzahlentwicklung, Lehrkräfte",
+      "erlaeuterung": "Kennzahlen der öffentlichen Realschulen (staatliche und kommunale Träger) im Kreis, gezählt am Ort der Schule; Werte für Privatschulen, darunter die kirchlichen Realschulen, veröffentlicht die Kommunale Bildungsdatenbank auf Kreisebene nicht. Die Entwicklung der Schülerzahl ist die Veränderung in Prozent gegenüber dem Stand fünf Schuljahre zuvor. Schüler je Lehrkraft zählt die Lehrkräfte nach Köpfen, nicht nach Vollzeitstellen; ein hoher Teilzeitanteil senkt diesen Wert deshalb, ohne dass mehr Unterrichtskapazität vorhanden sein muss. Quelle: Kommunale Bildungsdatenbank, Tabellen BY-D07.1i und BY-D09.1i."
     },
     {
       "id": "rs_sch_je_lk",

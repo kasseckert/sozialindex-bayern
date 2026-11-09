@@ -233,6 +233,8 @@ def main():
             "indikatoren": [{k: v for k, v in i.items() if k not in ("quelle", "quellen")} for i in K.INDIKATOREN],
             "quellen": quellen,
             "datenstand": datenstand,
+            # Rubriken: thematische Gruppen in Merkmalsauswahl und Kennzahlentabelle (z. B. „Realschule“)
+            "rubriken": json.loads((WURZEL / "konfiguration" / "indikatoren.json").read_text(encoding="utf-8")).get("rubriken", []),
             "schulstandorte": sorted(p.stem for p in (WURZEL / "web" / "data" / "schulen").glob("*.geojson")),
         },
     }

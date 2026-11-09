@@ -79,6 +79,10 @@ Die Dimension „Bildung und Familie“ greift auf sechs Quellen zurück:
 
 **Grenzen:** Die Bildungsfragen des Zensus gibt es nur für Kreise sowie für Gemeinden ab 10 000 Einwohnern, deshalb nur auf Kreisebene genutzt. Die Schulentfernung ist Luftlinie vom Flächenmittelpunkt der Gemeinde, kein Schulweg. Die Übertrittsquote hängt auch vom Schulangebot vor Ort ab und ist in den Städten traditionell höher. Übertrittsquoten liegen bisher für 2023 und 2024 vor; neue Jahrgänge nach `daten/import/LIESMICH.md` ergänzen.
 
+## Rubriken
+
+Thematisch zusammengehörige Indikatoren lassen sich zu Rubriken bündeln. Sie stehen in `konfiguration/indikatoren.json` unter `"rubriken"`, z. B. `[{"name": "Realschule", "indikatoren": ["uebertritt_rs", "eignung_rs", …]}]`. Eine Rubrik erscheint als eigene Gruppe in der Merkmalsauswahl und als eigener Abschnitt in der Kennzahlentabelle der Popups und im Ausdruck, in der dort angegebenen Reihenfolge. Jeder Wert wird auf der genauesten verfügbaren Ebene gezeigt; in der Gemeindeansicht sind Werte, die es nur für Kreise gibt, mit „(Kreis)“ gekennzeichnet. Indikatoren einer Rubrik erscheinen nicht zusätzlich im Abschnitt „Kontext“.
+
 ## Drucken und PDF
 
 Jedes Gebiets-Popup hat unten den Knopf „Drucken oder als PDF speichern“. Er stellt Profil, Verlauf und Kennzahlen des Gebiets mit Jahr, Vergleichsmaßstab, Rang und Quellenhinweis auf A4 zusammen und öffnet den Druckdialog; dort lässt sich ein Drucker oder „Als PDF speichern“ wählen. Die Druckfassung ist immer hell, auch wenn die Karte im Dunkelmodus angezeigt wird. Am Ende der Gebietsansicht stehen „Erläuterungen“ zu den Kennzahlen der Tabelle: Definition, Zählweise, Stichtag und Quelle. Die Texte stehen in `konfiguration/indikatoren.json` in den Feldern `erlaeuterung` (Text), `erlaeuterung_gruppe` (Kennzahlen mit gemeinsamer Erläuterung) und `erlaeuterung_titel` (Überschrift der Gruppe) und lassen sich dort anpassen oder für weitere Kennzahlen ergänzen.

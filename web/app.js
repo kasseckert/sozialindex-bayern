@@ -202,6 +202,10 @@
   }
 
   // ------------------------------------------------------------ Steuerung
+  /** Rubriken aus der Konfiguration (z. B. „Realschule“) und die Menge aller ihnen zugeordneten Indikatoren. */
+  function rubriken() { return (Z.daten.meta.rubriken || []).filter((r) => r.indikatoren?.length); }
+  function inRubrik(id) { return rubriken().some((r) => r.indikatoren.includes(id)); }
+
   function merkmalOptionenAufbauen() {
     const sel = $("#merkmal");
     const verfuegbar = new Set(ebenenDaten().indikatoren);
@@ -217,9 +221,14 @@
           .map((i) => `<option value="ind:${i.id}">${esc(i.name)}</option>`).join("")}</optgroup>`);
       }
     }
-    const kontext = Z.daten.meta.indikatoren.filter((i) => verfuegbar.has(i.id) && i.im_index === false);
+    const kontext = Z.daten.meta.indikatoren.filter((i) => verfuegbar.has(i.id) && i.im_index === false && !inRubrik(i.id));
     if (kontext.length) {
       gruppen.push(`<optgroup label="Kontext, nicht im Index">${kontext
+        .map((i) => `<option value="ind:${i.id}">${esc(i.name)}</option>`).join("")}</optgroup>`);
+    }
+    for (const r of rubriken()) {
+      const inds = r.indikatoren.filter((id) => verfuegbar.has(id)).map(indikator).filter(Boolean);
+      if (inds.length) gruppen.push(`<optgroup label="${esc(r.name)}">${inds
         .map((i) => `<option value="ind:${i.id}">${esc(i.name)}</option>`).join("")}</optgroup>`);
     }
     sel.innerHTML = gruppen.join("");
@@ -1114,14 +1123,14 @@
     };
 
     let html = `<table class="kennzahlen"><colgroup><col class="c-name"><col class="c-wert"><col class="c-ref"></colgroup><thead><tr><th>${Z.jahr}</th><th>Wert</th><th>Ø ${regionalAktiv() ? "Region" : esc(landName())}</th></tr></thead><tbody>`;
-    for (const id of ebenenDaten().indikatoren.filter((x) => !istKontext(x))) {
+    for (const id of ebenenDaten().indikatoren.filter((x) => !istKontext(x) && !inRubrik(x))) {
       const ind = indikator(id);
       html += zeile(ind, g.werte[id]?.[j], referenzWert(id), farbe(skalenwert(ags, "ind:" + id), false), fortgeschriebenAus(ags, id));
     }
     if (Z.ebene === "gemeinde") {
       const kAgs = ags.slice(0, 5);
       const kg = gebietDaten(kAgs, "kreis");
-      const nurKreis = Z.daten.kreis.indikatoren.filter((id) => !Z.daten.gemeinde.indikatoren.includes(id) && !istKontext(id));
+      const nurKreis = Z.daten.kreis.indikatoren.filter((id) => !Z.daten.gemeinde.indikatoren.includes(id) && !istKontext(id) && !inRubrik(id));
       if (kg && nurKreis.length) {
         html += `<tr class="zwischen"><th colspan="3">Nur auf Kreisebene verfügbar (Wert des Kreises)</th></tr>`;
         for (const id of nurKreis) {
@@ -1134,13 +1143,31 @@
     const kEbene = Z.ebene === "gemeinde" ? "kreis" : Z.ebene;
     const kAgs2 = Z.ebene === "gemeinde" ? ags.slice(0, 5) : ags;
     const kg2 = gebietDaten(kAgs2, kEbene);
-    const kontextIds = (Z.daten[kEbene].kontext || []).filter((id) => kg2?.werte[id]);
+    const kontextIds = (Z.daten[kEbene].kontext || []).filter((id) => kg2?.werte[id] && !inRubrik(id));
     if (kontextIds.length) {
       html += `<tr class="zwischen"><th colspan="3">Kontext, nicht im Index${Z.ebene === "gemeinde" ? " (Wert des Kreises)" : ""}</th></tr>`;
       for (const id of kontextIds) {
         html += zeile(indikator(id), kg2.werte[id]?.[j], referenzWert(id, Z.jahr, kEbene),
           farbe(skalenwert(kAgs2, "ind:" + id, Z.jahr, kEbene), true), fortgeschriebenAus(kAgs2, id, Z.jahr, kEbene));
       }
+    }
+    for (const r of rubriken()) {
+      let abschnitt = "";
+      for (const id of r.indikatoren) {
+        const ind = indikator(id);
+        if (!ind) continue;
+        // eigene Ebene, falls dort vorhanden; sonst (bei Gemeinden) der Wert des Kreises
+        const eigene = gebietDaten(ags)?.werte?.[id];
+        const ebeneR = eigene ? Z.ebene : (Z.ebene === "gemeinde" ? "kreis" : null);
+        if (!ebeneR) continue;
+        const agsR = ebeneR === Z.ebene ? ags : ags.slice(0, 5);
+        const gR = gebietDaten(agsR, ebeneR);
+        if (!gR?.werte?.[id]) continue;
+        const z = zeile(ind, gR.werte[id][j], referenzWert(id, Z.jahr, ebeneR),
+          farbe(skalenwert(agsR, "ind:" + id, Z.jahr, ebeneR), istKontext(id)), fortgeschriebenAus(agsR, id, Z.jahr, ebeneR));
+        abschnitt += ebeneR !== Z.ebene ? z.replace("</th>", '<span class="kreiswert"> (Kreis)</span></th>') : z;
+      }
+      if (abschnitt) html += `<tr class="zwischen"><th colspan="3">${esc(r.name)}</th></tr>` + abschnitt;
     }
     flaeche.innerHTML = html + "</tbody></table>";
     notiz.textContent = "Der farbige Punkt zeigt, ob der Wert günstiger (grün) oder ungünstiger (violett) als der Durchschnitt ist."

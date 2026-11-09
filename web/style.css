@@ -370,3 +370,5 @@ input[type="range"] { width: 100%; accent-color: var(--s7); margin: 2px 0; }
   #druckansicht.quer .punkt { width: 6px; height: 6px; margin-right: 3px; }
   #druckansicht.quer .druck-tabelle { break-inside: avoid; }
 }
+
+.kennzahlen .kreiswert { font-weight: 400; color: var(--leise); font-size: .9em; }
