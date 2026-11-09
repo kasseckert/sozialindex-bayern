@@ -65,9 +65,18 @@ def hat_zugang(datenbank: str) -> bool:
     return bool(os.environ.get(f"GENESIS_{datenbank.upper()}_USER"))
 
 
+# Ausfallerkennung: nach mehreren Server- oder Netzfehlern in Folge gilt eine Datenbank für den Rest
+# des Laufs als nicht erreichbar und wird nicht weiter angefragt (sonst summieren sich Wartezeiten).
+AUSFALL_GRENZE = 3
+_fehler_in_folge: dict = {}
+AUSGEFALLEN: dict = {}
+
+
 def _post(datenbank: str, pfad: str, parameter: dict, versuche: int = 2, lesezeit: int = 90) -> requests.Response:
     if datenbank not in BASIS_URL:
         raise GenesisFehler(f"Unbekannte Datenbank '{datenbank}'")
+    if datenbank in AUSGEFALLEN:
+        raise GenesisFehler(f"Datenbank {datenbank} in diesem Lauf nicht erreichbar ({AUSGEFALLEN[datenbank]}); Anfrage übersprungen")
     user, pw = _zugang(datenbank)
     url = f"{BASIS_URL[datenbank]}/{pfad}"
     headers = {
@@ -75,16 +84,27 @@ def _post(datenbank: str, pfad: str, parameter: dict, versuche: int = 2, lesezei
         "password": pw,
         "Content-Type": "application/x-www-form-urlencoded",
     }
-    letzter_fehler = None
+    letzter_fehler, ausfall = None, False
     for i in range(versuche):
         try:
             r = requests.post(url, headers=headers, data=parameter, timeout=(15, lesezeit))
             if r.status_code == 200:
+                _fehler_in_folge[datenbank] = 0
                 return r
             letzter_fehler = f"HTTP {r.status_code}: {r.text[:300]}"
+            ausfall = r.status_code >= 500          # Serverfehler, nicht etwa ein ungültiger Parameter
         except requests.RequestException as e:
             letzter_fehler = str(e)
+            ausfall = True                          # Zeitüberschreitung, Verbindungsfehler
+        if not ausfall:
+            break                                   # fachlicher Fehler: Wiederholen hilft nicht
         time.sleep(3)
+    if ausfall:
+        _fehler_in_folge[datenbank] = _fehler_in_folge.get(datenbank, 0) + 1
+        if _fehler_in_folge[datenbank] >= AUSFALL_GRENZE:
+            AUSGEFALLEN[datenbank] = (letzter_fehler or "")[:60].split("<")[0].strip()
+    else:
+        _fehler_in_folge[datenbank] = 0
     raise GenesisFehler(f"{url} fehlgeschlagen: {letzter_fehler}")
 
 
@@ -194,6 +214,9 @@ def tabelle_stueckweise(datenbank: str, tabelle: str, startjahr: int, endjahr: i
     for runde in (1, 2):                     # gescheiterte Jahre ein zweites Mal versuchen
         noch_offen = []
         for jahr in offen:
+            if datenbank in AUSGEFALLEN:
+                noch_offen.append(jahr)
+                continue
             try:
                 zeilen += tabelle_ffcsv(datenbank, tabelle, jahr, jahr, regionalvariable, regionalschluessel)
             except GenesisFehler as e:
@@ -259,7 +282,7 @@ def tabelle_fuer_ebene(datenbank: str, tabelle: str, startjahr: int, endjahr: in
     versucht, fehler = [], []
 
     def probieren(rv):
-        if rv in versucht:
+        if rv in versucht or datenbank in AUSGEFALLEN:
             return None
         versucht.append(rv)
         try:

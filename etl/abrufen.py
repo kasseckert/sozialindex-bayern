@@ -254,6 +254,18 @@ def quelle_quotient(spec: dict, ebene: str):
 
 
 ARCHIV = DATEN / "werte_archiv.csv"
+ARCHIV_KONFIG = DATEN / "werte_archiv_konfig.json"   # Fingerabdruck der Quellenangabe je Indikator
+# Quellenprotokoll des letzten erfolgreichen Laufs (zum Prüfen archivierter Werte)
+try:
+    LETZTES_PROTOKOLL = json.loads((DATEN / "quellenprotokoll.json").read_text(encoding="utf-8"))
+except Exception:
+    LETZTES_PROTOKOLL = {}
+
+
+def quellen_fingerabdruck(ind: dict) -> str:
+    """Kurzer Fingerabdruck der Quellenangabe; ändert sich die Konfiguration, passen alte Archivwerte nicht mehr."""
+    import hashlib
+    return hashlib.sha1(json.dumps(ind.get("quellen", []), sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12]
 _ARCHIV: dict | None = None
 
 
@@ -519,6 +531,15 @@ def main():
                     jahre_txt = ", ".join(map(str, sorted({j for _, j in fehlend})))
                     protokoll.append(f"  · {ind['id']} ({ebene}): Jahre {jahre_txt} diesmal nicht geliefert, aus dem letzten Lauf übernommen")
                     herkunft += " (teils aus letztem Lauf)"
+            if not werte and not nur_demo:
+                # Keine Quelle erreichbar: archivierte Werte übernehmen, sofern die Quellenangabe seitdem unverändert ist
+                abdruecke = json.loads(ARCHIV_KONFIG.read_text(encoding="utf-8")) if ARCHIV_KONFIG.exists() else {}
+                if abdruecke.get(f"{ebene}:{ind['id']}") == quellen_fingerabdruck(ind):
+                    letzte = LETZTES_PROTOKOLL.get(ebene, {}).get(ind["id"], {}).get("herkunft")
+                    alt = {k: v for k, v in _aus_letztem_lauf(ind["id"], ebene, letzte).items() if k[1] in K.JAHRE}
+                    if alt:
+                        werte, herkunft, info = alt, "archiv (Quelle in diesem Lauf nicht erreichbar)", {}
+                        protokoll.append(f"  · {ind['id']} ({ebene}): Quelle nicht erreichbar, {len(alt)} Werte aus dem Archiv übernommen")
             if werte:
                 echte_werte += len(werte)
             elif nur_demo or auffuellen:
@@ -536,9 +557,11 @@ def main():
             protokoll.append(f"{ebene:<9} {ind['id']:<11} {len(werte):>5} Werte  {herkunft}")
 
     try:
-        from genesis import LUECKEN
+        from genesis import LUECKEN, AUSGEFALLEN
         for meldung in LUECKEN:
             protokoll.append(f"  ! {meldung}")
+        for db, grund in AUSGEFALLEN.items():
+            protokoll.append(f"  ! Datenbank {db} war in diesem Lauf nicht erreichbar ({grund}); weitere Anfragen wurden übersprungen")
     except ImportError:
         pass
     if not nur_demo:
@@ -550,6 +573,14 @@ def main():
 
     if not nur_demo:
         archiv_schreiben(zeilen)
+        abdruecke = json.loads(ARCHIV_KONFIG.read_text(encoding="utf-8")) if ARCHIV_KONFIG.exists() else {}
+        for ebene, eintraege in quellenprotokoll.items():
+            for ind_id, e in eintraege.items():
+                if not e["herkunft"].startswith(("demo", "archiv")):
+                    ind = next((i for i in K.INDIKATOREN if i["id"] == ind_id), None)
+                    if ind:
+                        abdruecke[f"{ebene}:{ind_id}"] = quellen_fingerabdruck(ind)
+        ARCHIV_KONFIG.write_text(json.dumps(abdruecke, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
     with (DATEN / "rohdaten.csv").open("w", encoding="utf-8", newline="") as f:
         w = csv.writer(f, delimiter=";", lineterminator="\n")
         w.writerow(["ebene", "ags", "jahr", "indikator", "wert", "herkunft"])
