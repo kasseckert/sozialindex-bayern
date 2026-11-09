@@ -107,100 +107,49 @@
    "einheit": "Prozent"
   },
   "sch_ausl": {
-   "herkunft": "summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D07.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "sch_je_lk": {
-   "herkunft": "summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D07.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "lk_teilzeit": {
-   "herkunft": "summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D09.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "einsch_spaet": {
-   "herkunft": "summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D11.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "einsch_frueh": {
-   "herkunft": "summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D11.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "ue_ms": {
-   "herkunft": "genesis:bildung/BY-D12.1i (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D12.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "ue_gym_kbd": {
-   "herkunft": "genesis:bildung/BY-D12.1i (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D12.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "ue_rs_kbd": {
-   "herkunft": "genesis:bildung/BY-D12.1i (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D12.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "ue_sonst_kbd": {
-   "herkunft": "rest(100 - genesis:bildung/BY-D12.1i - genesis:bildung/BY-D12.1i - genesis:bildung/BY-D12.1i) (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D12.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "wechsel_gym_rs": {
-   "herkunft": "genesis:bildung/BY-D12.3i (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D12.3i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "wechsel_rs_ms": {
-   "herkunft": "genesis:bildung/BY-D12.3i (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D12.3i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "wechsel_ms_rs": {
-   "herkunft": "genesis:bildung/BY-D12.3i (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D12.3i",
-   "titel": ""
-  },
-  "rs_schueler": {
-   "herkunft": "summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D07.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "rs_entw": {
-   "herkunft": "veraenderung(5 J.: summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i))",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D07.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "rs_sch_je_lk": {
-   "herkunft": "summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D07.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "rs_lk_teilzeit": {
-   "herkunft": "summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-D09.1i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "weg_rs": {
    "herkunft": "schulen:realschule (konstant fortgeschrieben)",
@@ -208,16 +157,10 @@
    "code": "realschule"
   },
   "azubi_hw": {
-   "herkunft": "genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-E07.6i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "azubi_ih": {
-   "herkunft": "genesis:bildung/BY-E07.6i / genesis:bildung/BY-E07.6i (teils aus letztem Lauf)",
-   "quelle": "Kommunale Bildungsdatenbank",
-   "code": "BY-E07.6i",
-   "titel": ""
+   "herkunft": "archiv (Quelle in diesem Lauf nicht erreichbar)"
   },
   "ohne_beruf": {
    "herkunft": "genesis:zensus/2000S-1003 / genesis:zensus/2000S-1003 (konstant fortgeschrieben)",
