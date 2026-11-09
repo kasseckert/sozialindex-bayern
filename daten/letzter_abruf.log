@@ -12,46 +12,94 @@ kreis     uebertritt_rs   576 Werte  csv:uebertritt_realschule.csv
 kreis     eignung_gym   576 Werte  csv:eignung_gymnasium.csv
 kreis     eignung_rs    576 Werte  csv:eignung_realschule.csv
 kreis     abi           960 Werte  regionalatlas:AI003-2/ai0304
-  · sch_ausl (kreis, quotient): 100 s
-kreis     sch_ausl     1440 Werte  summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i)
-  · sch_je_lk (kreis, quotient): 172 s
-kreis     sch_je_lk    1440 Werte  summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)
-  · lk_teilzeit (kreis, quotient): 22 s
-kreis     lk_teilzeit  1440 Werte  summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)
-  · einsch_spaet (kreis, quotient): 380 s
-  · einsch_spaet (kreis): Jahre 2017, 2018, 2019 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     einsch_spaet  1440 Werte  summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) (teils aus letztem Lauf)
-  · einsch_frueh (kreis): Jahre 2017, 2018, 2019 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     einsch_frueh  1440 Werte  summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) / summe(genesis:bildung/BY-D11.1i, genesis:bildung/BY-D11.1i) (teils aus letztem Lauf)
-  · ue_ms (kreis, genesis): 473 s
-  · ue_ms (kreis): Jahre 2018, 2019, 2020 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     ue_ms        1344 Werte  genesis:bildung/BY-D12.1i (teils aus letztem Lauf)
-  · ue_gym_kbd (kreis): Jahre 2018, 2019, 2020 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     ue_gym_kbd   1344 Werte  genesis:bildung/BY-D12.1i (teils aus letztem Lauf)
-  · ue_rs_kbd (kreis): Jahre 2018, 2019, 2020 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     ue_rs_kbd    1344 Werte  genesis:bildung/BY-D12.1i (teils aus letztem Lauf)
-  · ue_sonst_kbd (kreis): Jahre 2018, 2019, 2020 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     ue_sonst_kbd  1344 Werte  rest(100 - genesis:bildung/BY-D12.1i - genesis:bildung/BY-D12.1i - genesis:bildung/BY-D12.1i) (teils aus letztem Lauf)
-  · wechsel_gym_rs (kreis, genesis): 512 s
-  · wechsel_gym_rs (kreis): Jahre 2015, 2019, 2020 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     wechsel_gym_rs  1344 Werte  genesis:bildung/BY-D12.3i (teils aus letztem Lauf)
-  · wechsel_rs_ms (kreis): Jahre 2015, 2019, 2020 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     wechsel_rs_ms  1344 Werte  genesis:bildung/BY-D12.3i (teils aus letztem Lauf)
-  · wechsel_ms_rs (kreis): Jahre 2015, 2019, 2020 diesmal nicht geliefert, aus dem letzten Lauf übernommen
-kreis     wechsel_ms_rs  1173 Werte  genesis:bildung/BY-D12.3i (teils aus letztem Lauf)
-kreis     rs_schueler  1440 Werte  summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i)
-kreis     rs_entw       960 Werte  veraenderung(5 J.: summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i))
-kreis     rs_sch_je_lk  1440 Werte  summe(genesis:bildung/BY-D07.1i, genesis:bildung/BY-D07.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)
-  · rs_lk_teilzeit (kreis, quotient): 25 s
-kreis     rs_lk_teilzeit  1440 Werte  summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i) / summe(genesis:bildung/BY-D09.1i, genesis:bildung/BY-D09.1i)
+  ! sch_ausl (kreis, quotient, 43 s): Tabelle BY-D07.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     sch_ausl        – keine Daten, entfällt auf dieser Ebene
+  ! sch_je_lk (kreis, quotient, 0 s): Tabelle BY-D07.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     sch_je_lk       – keine Daten, entfällt auf dieser Ebene
+  ! lk_teilzeit (kreis, quotient, 425 s): Tabelle BY-D09.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: Tabelle BY-D09.1i: auch jahresweise kein Abruf möglich (2010: https://www.bildungsmonitoring.de/bildungws/rest/2020/data; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     lk_teilzeit     – keine Daten, entfällt auf dieser Ebene
+  ! einsch_spaet (kreis, quotient, 60 s): Tabelle BY-D11.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     einsch_spaet     – keine Daten, entfällt auf dieser Ebene
+  ! einsch_frueh (kreis, quotient, 0 s): Tabelle BY-D11.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     einsch_frueh     – keine Daten, entfällt auf dieser Ebene
+  ! ue_ms (kreis, genesis, 81 s): Tabelle BY-D12.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     ue_ms           – keine Daten, entfällt auf dieser Ebene
+  ! ue_gym_kbd (kreis, genesis, 0 s): Tabelle BY-D12.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     ue_gym_kbd      – keine Daten, entfällt auf dieser Ebene
+  ! ue_rs_kbd (kreis, genesis, 0 s): Tabelle BY-D12.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     ue_rs_kbd       – keine Daten, entfällt auf dieser Ebene
+  ! ue_sonst_kbd (kreis, rest, 0 s): Tabelle BY-D12.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     ue_sonst_kbd     – keine Daten, entfällt auf dieser Ebene
+  ! wechsel_gym_rs (kreis, genesis, 399 s): Tabelle BY-D12.3i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: Tabelle BY-D12.3i: auch jahresweise kein Abruf möglich (2010: https://www.bildungsmonitoring.de/bildungws/rest/2020/data)
+kreis     wechsel_gym_rs     – keine Daten, entfällt auf dieser Ebene
+  ! wechsel_rs_ms (kreis, genesis, 0 s): Tabelle BY-D12.3i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: Tabelle BY-D12.3i: auch jahresweise kein Abruf möglich (2010: https://www.bildungsmonitoring.de/bildungws/rest/2020/data)
+kreis     wechsel_rs_ms     – keine Daten, entfällt auf dieser Ebene
+  ! wechsel_ms_rs (kreis, genesis, 0 s): Tabelle BY-D12.3i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: Tabelle BY-D12.3i: auch jahresweise kein Abruf möglich (2010: https://www.bildungsmonitoring.de/bildungws/rest/2020/data)
+kreis     wechsel_ms_rs     – keine Daten, entfällt auf dieser Ebene
+  ! rs_entw (kreis, veraenderung, 0 s): Tabelle BY-D07.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     rs_entw         – keine Daten, entfällt auf dieser Ebene
+  ! rs_sch_je_lk (kreis, quotient, 0 s): Tabelle BY-D07.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     rs_sch_je_lk     – keine Daten, entfällt auf dieser Ebene
+  ! rs_lk_teilzeit (kreis, quotient, 0 s): Tabelle BY-D09.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: Tabelle BY-D09.1i: auch jahresweise kein Abruf möglich (2010: https://www.bildungsmonitoring.de/bildungws/rest/2020/data; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     rs_lk_teilzeit     – keine Daten, entfällt auf dieser Ebene
 kreis     weg_rs        960 Werte  schulen:realschule (konstant fortgeschrieben)
-  · kinder_gs (kreis, genesis): 440 s
-  · kinder_gs (kreis): Werte nur bis 2023; die Tabelle enthält keine späteren Jahre
-kreis     kinder_gs    1248 Werte  genesis:bildung/BY-A01.2i
-  · kinder_gs_entw (kreis): Werte nur bis 2023; die Tabelle enthält keine späteren Jahre
-kreis     kinder_gs_entw   768 Werte  veraenderung(5 J.: genesis:bildung/BY-A01.2i)
-  · wand_u18 (kreis, quotient): 467 s
-kreis     wand_u18      960 Werte  genesis:bildung/BY-A01.5i / summe(genesis:bildung/BY-A01.2i, genesis:bildung/BY-A01.2i, genesis:bildung/BY-A01.2i, genesis:bildung/BY-A01.2i, genesis:bildung/BY-A01.2i)
-kreis     zuzug_u18     960 Werte  genesis:bildung/BY-A01.5i / summe(genesis:bildung/BY-A01.2i, genesis:bildung/BY-A01.2i, genesis:bildung/BY-A01.2i, genesis:bildung/BY-A01.2i, genesis:bildung/BY-A01.2i)
-  ! hzb_beruf (kreis, quotient, 640 s): Keine Werte aus 436500 Zeilen: 432000 mit Kreisschlüssel, 0 passend zu Filtern/Insgesamt, 0 mit Zahlwert. Gebietscodes z. B. ['09279', '09764', '09171', '09189', '09163', '09677']; Wertbeispiele ['-', '51', '2', '-', '58']; Ausprägungen {'Schulart (beruflich)': ['Wirtschaftsschulen', 'Berufsoberschulen', 'Fachschulen', 'Fachakademien', 'Berufsfachschulen des Gesundheitswesens', 'Fachoberschulen', 'Berufsschulen zur sonderpädagogischen Förderung', 'Berufsschulen', 'Insgesamt', 'Berufsfachschulen', 'Fachhochschulreife', 'Hauptschulabschluss'], 'Geschlecht und Nationalität': ['Insgesamt', 'Weiblich', 'Ausländer', 'Männlich', 'Deutsche', 'Berufsoberschulen', 'Wirtschaftsschulen', 'Fachakademien', 'Berufsschulen zur sonderpädagogischen Förderung', 'Berufsschulen', 'Berufsfachschulen des Gesundheitswesens', 'Fachschulen'], '': ['', 'Insgesamt', 'Männlich', 'Weiblich', 'Deutsche', 'Ausländer']}
+  ! kinder_gs (kreis, genesis, 63 s): Tabelle BY-A01.2i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     kinder_gs       – keine Daten, entfällt auf dieser Ebene
+  ! kinder_gs_entw (kreis, veraenderung, 0 s): Tabelle BY-A01.2i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l)
+kreis     kinder_gs_entw     – keine Daten, entfällt auf dieser Ebene
+  ! wand_u18 (kreis, quotient, 471 s): Tabelle BY-A01.5i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: Tabelle BY-A01.5i: auch jahresweise kein Abruf möglich (2010: https://www.bildungsmonitoring.de/bildungws/rest/2020/data)
+kreis     wand_u18        – keine Daten, entfällt auf dieser Ebene
+  ! zuzug_u18 (kreis, quotient, 0 s): Tabelle BY-A01.5i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KRS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 503: ﻿<!DOCTYPE html>
+<html l; KREIS: Tabelle BY-A01.5i: auch jahresweise kein Abruf möglich (2010: https://www.bildungsmonitoring.de/bildungws/rest/2020/data)
+kreis     zuzug_u18       – keine Daten, entfällt auf dieser Ebene
+  ! hzb_beruf (kreis, quotient, 1495 s): Tabelle BY-E15.1i: keine Regionalebene mit den Kreisen gefunden (versucht: BY-KRE, KREISE, KRS, KREIS; KREISE: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 404: {"Code":2,"Content":"Ein ; KRS: Tabelle BY-E15.1i: auch jahresweise kein Abruf möglich (2010: https://www.bildungsmonitoring.de/bildungws/rest/2020/data; KREIS: https://www.bildungsmonitoring.de/bildungws/rest/2020/data/tablefile fehlgeschlagen: HTTP 404: {"Code":2,"Content":"Ein )
 kreis     hzb_beruf       – keine Daten, entfällt auf dieser Ebene
